@@ -1,0 +1,10 @@
+﻿Un niveau :
+
+Entrée
+Sortie
+Personnage
+collision
+trajet
+bonus
+clé
+
