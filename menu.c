@@ -11,7 +11,7 @@ int main() {
 	
 	/*initialisation sdl et ttf*/    
         SDL_Init(SDL_INIT_VIDEO);        
-        TTF_Init(); 
+         
 
 	/*creation fenetre*/    
         SDL_Window * window = SDL_CreateWindow("Trip",
@@ -67,7 +67,7 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 	SDL_Rect dstrect = { 575, 400, 400,200 };
 	SDL_RenderCopy(renderer, texture, NULL, &dstrect);
 	 SDL_BlitSurface(surface,NULL,SDL_GetWindowSurface(window),&dstrect);
-
+	TTF_Init();
 	TTF_Font *police = NULL;
 
 	
@@ -106,8 +106,8 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>225 && event.button.x<=400 && event.button.y<=275){
 		chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
-		 opt();
-		 
+		 opt(window,renderer,surface,texture, &terminermenu);
+		 chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
 		break;
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>300 && event.button.x<=400 && 			event.button.y<=350){

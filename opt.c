@@ -4,6 +4,7 @@ void opt(SDL_Window *window,SDL_Renderer* renderer, SDL_Surface *surface, SDL_Te
 	int termineropt=0;
 	SDL_Event event;
 	SDL_Init(SDL_INIT_VIDEO);
+	TTF_Init();
 
 	/*creation fenetre */
 	TTF_Font *police1 = NULL;
