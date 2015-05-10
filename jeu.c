@@ -179,14 +179,15 @@ void jouer(SDL_Window* ecran, SDL_Renderer* renderer, SDL_Surface* surface, int*
 	    }
 
 
-	 while (continuer)
+	 while (continuer==1)
     {	
 	
 		
 		
-        SDL_PollEvent(&event);
-switch(event.type)
-{
+       while (SDL_PollEvent(&event) != 0) {
+
+	switch(event.type)
+	{
     case SDL_QUIT:
         continuer = 0;
 	*terminerMap=1;
@@ -214,6 +215,7 @@ switch(event.type)
 		
                 break;
 	}
+}
    
     
 }
