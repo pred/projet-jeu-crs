@@ -2,14 +2,15 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
-#include "fichiers.c"
+#include "fichiers.h"
 #include "constantes.h"
 #include "jeu.h"
-#include "afficher.c"
+#include "afficher.h"
 
 
-void jouer(SDL_Window* ecran, SDL_Surface* surface,SDL_Renderer* renderer, int* a)
+void jouer(SDL_Window* ecran, SDL_Surface* surface,SDL_Renderer* renderer, int* a,char* s)
 {
 	SDL_Surface *souris[4] = {NULL};
 	SDL_Surface *mur = NULL, *fromage = NULL, *piege = NULL, *sourisActuel = NULL, *porte=NULL, *ciel=NULL; 
@@ -37,9 +38,9 @@ void jouer(SDL_Window* ecran, SDL_Surface* surface,SDL_Renderer* renderer, int* 
 
 	sourisActuel=souris[DROITE];
 	
-	char* s="niveaux.lvl";
 	
-	if (!chargerNiveau(carte,s))
+	
+	if (!chargerNiveau(carte[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR],s))
         	exit(EXIT_FAILURE);
 
 	
@@ -122,7 +123,7 @@ switch(event.type)
                 carte[positionJoueur.x][positionJoueur.y]=CIEL;
 		afficherimage(ecran,renderer, ciel ,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 	        deplacerJoueur(carte, &positionJoueur, HAUT);
-		sourisActuel=souris[DROITE];
+		sourisActuel==souris[DROITE];
 		afficherimage(ecran,renderer,souris[DROITE],texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 		SDL_UpdateWindowSurface(ecran);
 		
@@ -132,7 +133,7 @@ switch(event.type)
 		afficherimage(ecran,renderer, ciel, texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);        
                 deplacerJoueur(carte, &positionJoueur, BAS);
 		carte[positionJoueur.x][positionJoueur.y]=SOURIS;
-		sourisActuel=souris[GAUCHE];
+		sourisActuel==souris[GAUCHE];
 		afficherimage(ecran,renderer, souris[GAUCHE], texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 		SDL_UpdateWindowSurface(ecran);
 		
@@ -150,10 +151,8 @@ if (sourisActuel==souris[DROITE])
 				carte[positionJoueur.x][positionJoueur.y]=CIEL;
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 					SDL_UpdateWindowSurface(ecran);
-				win(nbrfromage);
-				*a=1;
-				continuer=0;
 				
+			
 			}
 			carte[positionJoueur.x][positionJoueur.y]=CIEL;
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
@@ -169,9 +168,8 @@ if (sourisActuel==souris[DROITE])
 				carte[positionJoueur.x][positionJoueur.y]=CIEL;
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 					SDL_UpdateWindowSurface(ecran);
-				win(nbrfromage);
-				*a=1; 
-				continuer=0;
+				
+				terminer=1;
 				 
 			}
 			carte[positionJoueur.x][positionJoueur.y]=CIEL;

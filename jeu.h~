@@ -1,0 +1,16 @@
+#ifndef DEF_JEU
+#define DEF_JEU
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
+
+    void jouer(SDL_Window* ecran,SDL_Surface* surface, SDL_Renderer* renderer,int* a, char *s);
+    void deplacerJoueur(int carte[][NB_BLOCS_HAUTEUR], SDL_Rect *pos, int direction);
+    
+
+
+#endif

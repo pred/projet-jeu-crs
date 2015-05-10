@@ -1,0 +1,9 @@
+#ifndef DEF_OPT
+#define DEF_OPT
+
+#include "afficher.h"
+
+void opt(SDL_Window *window, SDL_Renderer *renderer,SDL_Surface *surface, SDL_Texture *texture,int *terminermenu,int *ter);
+
+
+#endif

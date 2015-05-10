@@ -1,4 +1,10 @@
 #include "afficher.h"
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 void createtexte(char* mot, SDL_Surface* surface, SDL_Texture* texture,SDL_Renderer* renderer, SDL_Window* window, int i,int j,TTF_Font *police){
 
@@ -20,28 +26,6 @@ void createtexte(char* mot, SDL_Surface* surface, SDL_Texture* texture,SDL_Rende
 	
 
 }
-void chargerimage(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *surface,SDL_Texture *texture, int i, int j, char *image){
-	 surface = SDL_LoadBMP(image);
-	 texture = SDL_CreateTextureFromSurface(renderer,
-        surface);
-	SDL_Rect dstrect1 = {i, j, 200,200 };
-	SDL_RenderCopy(renderer, texture, NULL, &dstrect1);
-	SDL_BlitSurface(surface,NULL,SDL_GetWindowSurface(window),&dstrect1);
-
-	SDL_UpdateWindowSurface(window);
-}
-
-void afficherimage(SDL_Window* ecran, SDL_Renderer* renderer, SDL_Surface *surface, SDL_Texture* texture,int l,int m){
-
-	texture=SDL_CreateTextureFromSurface(renderer,surface);
-		
-	SDL_Rect Rect={l*34,m*34, 34,34};
-
-	SDL_RenderCopy(renderer, texture, NULL, &Rect);
-	SDL_BlitSurface(surface,NULL,SDL_GetWindowSurface(ecran),&Rect);
-
-
-}
 
 char attrapefromage(int i, int j, char c){
 
@@ -52,6 +36,17 @@ char attrapefromage(int i, int j, char c){
 		return k;
 	}
 return c;
+}
+
+void afficherimage(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *surface,SDL_Texture *texture, int i, int j, char *image){
+	SDL_Surface* surface = SDL_LoadBMP(image);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,
+        surface);
+	SDL_Rect dstrect1 = {i, j, 200,200 };
+	SDL_RenderCopy(renderer, texture, NULL, &dstrect1);
+	SDL_BlitSurface(surface,NULL,SDL_GetWindowSurface(window),&dstrect1);
+
+	SDL_UpdateWindowSurface(window);
 }
 
 void win(char* h){

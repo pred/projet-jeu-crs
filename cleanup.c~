@@ -1,0 +1,13 @@
+#include "menu.h"
+
+void cleanup(SDL_Surface* souris, SDL_Surface* jouer, SDL_Surface* options){
+		
+		
+		SDL_FreeSurface(souris);
+		
+		SDL_FreeSurface(jouer);
+		SDL_FreeSurface(options);
+		
+
+}
+

@@ -1,10 +1,15 @@
 #include "menu.h"
 #include "niveau.h"
-#include "cleanup.h"
 #include "afficher.h"
 #include "opt.h"
-
-void menu();	
+#include "cleanup.h"
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+	
 
 int main() {
 	int terminer=0;
@@ -45,20 +50,16 @@ int main() {
 		
 	
     	
-	
 	while(terminer==0){
 	
 	menu(&terminer, window, renderer, surface, texture);
 	}	
-	
 	SDL_FreeSurface(surface);
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	return 0;
 }
-
-
        
 void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *surface, SDL_Texture *texture){        
         int terminermenu = 0;        
@@ -69,7 +70,6 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 	 SDL_BlitSurface(surface,NULL,SDL_GetWindowSurface(window),&dstrect);
 
 	TTF_Font *police = NULL;
-
 	
 	createtexte("JOUER", surface, texture,renderer,  window, 250, 150,police);
 	createtexte("OPTIONS", surface, texture,renderer,  window, 250, 225, police);
@@ -77,7 +77,7 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 	
 	TTF_CloseFont(police);  
 		TTF_Quit(); 
-	 free(police);
+	 free(police); 
 
         while (terminermenu==0)        
         {        
@@ -93,10 +93,10 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 	   case SDL_MOUSEBUTTONDOWN:
 		/*cas ou l'on clique sur jouer */
 		if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>150 && event.button.x<=400 && 		event.button.y<=200){
-	chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
+	afficherimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
 	 
-	niveau(window,renderer,surface,texture,&terminermenu);	
-	chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");	
+	niveau(window,renderer,texture,surface,&terminermenu);	
+	afficherimage(window, renderer,surface ,texture ,0,0,"noir.bmp");	
 		 
 		
 		
@@ -106,7 +106,7 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>225 && event.button.x<=400 && event.button.y<=275){
 		chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
-		 opt();
+		 opt(window,renderer,surface,texture,&terminermenu);
 		break;
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>300 && event.button.x<=400 && 			event.button.y<=350){
@@ -120,6 +120,6 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
            }    
         }        
 	 
-	  
+}	  
      
-    }
+   
