@@ -1,6 +1,6 @@
 #include "niveau.h"
 #include "menu.h"
-#include "niveau11.c"
+#include "jeu.h"
 #include "afficher.h"
 void niveau(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *surface, SDL_Texture *texture, int *terminermenu){
 	int terminer=0;

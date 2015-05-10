@@ -3,25 +3,101 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "fichiers.c"
+#include "fichiers.h"
 #include "constantes.h"
 #include "jeu.h"
-#include "afficher.c"
+#include "afficher.h"
 
-
-void jouer(SDL_Window* ecran, SDL_Surface* surface,SDL_Renderer* renderer, int* a)
+void map()
 {
-	SDL_Surface *souris[4] = {NULL};
+	SDL_Window* screen;
+	SDL_Event event;
+	
+	SDL_Init(SDL_INIT_VIDEO);	
+	
+	screen=SDL_CreateWindow("triptrap",
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,TAILLE_BLOC*NB_BLOCS_LARGEUR,TAILLE_BLOC*NB_BLOCS_HAUTEUR, 0);
+	
+	SDL_Renderer * renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED);
+	SDL_RenderPresent(renderer);
+
+	SDL_Surface *surface=NULL;
+	SDL_UpdateWindowSurface(screen);
+	int terminerMap=0;
+	jouer(screen, renderer, surface, &terminerMap); 
+	
+	
+	while (terminerMap==0)        
+        {        
+           SDL_WaitEvent(&event);        
+            
+           switch(event.type)        
+           {        
+           case SDL_QUIT:        
+              terminerMap=1; 
+				  
+               break;
+	    }
+	}
+	SDL_FreeSurface(surface);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(screen);
+	SDL_Quit();
+	
+}
+
+
+
+void jouer(SDL_Window* ecran, SDL_Renderer* renderer, SDL_Surface* surface, int* terminerMap)
+{
+	SDL_Surface** souris = NULL;
+	souris = (SDL_Surface**) malloc (sizeof(SDL_Surface*)*5);
+	if (souris == NULL) {
+		int i;
+		for (i=0; i<5;i++) {
+			SDL_FreeSurface(souris[i]);
+		}
+		free(souris);
+	}
 	SDL_Surface *mur = NULL, *fromage = NULL, *piege = NULL, *sourisActuel = NULL, *porte=NULL, *ciel=NULL; 
 	SDL_Rect position, positionJoueur;
 	SDL_Event event;
 	TTF_Init(); 
 
 	
-	
+	int h, erreur;
 	int continuer = 1,  i = 0, j = 0;
-	int carte[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR] ;
-	memset(carte, 0, sizeof(carte));
+	int **carte ;
+	carte= (int **) malloc(sizeof(int *)*NB_BLOCS_HAUTEUR);
+	if (carte!=NULL)
+	{
+		h=0;
+		erreur=0;
+		while ((h<NB_BLOCS_HAUTEUR) && !erreur)
+		{
+			carte[h]=(int *) malloc(sizeof(int)*NB_BLOCS_LARGEUR);
+			if (carte==NULL)
+			{
+				erreur=1;
+			}
+			else 
+			{
+				h++;
+			}
+		}
+		if (erreur)
+		{
+			while (h)
+			{
+				h--;
+				free(carte[h]);
+
+			}
+			free(carte);
+		}
+	}
+
+	//memset(carte, 0, sizeof(carte));
 	SDL_Texture* texture[NB_BLOCS_LARGEUR][NB_BLOCS_HAUTEUR] ;
 	memset(texture, 0, sizeof(texture));
 
@@ -113,7 +189,7 @@ switch(event.type)
 {
     case SDL_QUIT:
         continuer = 0;
-	*a=1;
+	*terminerMap=1;
         break;
     case SDL_KEYDOWN:
         switch(event.key.keysym.sym)
@@ -151,7 +227,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 					SDL_UpdateWindowSurface(ecran);
 				win(nbrfromage);
-				*a=1;
+				*terminerMap=1;
 				continuer=0;
 				
 			}
@@ -170,7 +246,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 					SDL_UpdateWindowSurface(ecran);
 				win(nbrfromage);
-				*a=1; 
+				*terminerMap=1; 
 				continuer=0;
 				 
 			}
@@ -234,7 +310,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 			SDL_UpdateWindowSurface(ecran);
 				win(nbrfromage);
-				*a=1;
+				*terminerMap=1;
 				continuer=0; 
 			}
 			
@@ -253,7 +329,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 			SDL_UpdateWindowSurface(ecran);			
 				win(nbrfromage);
-				*a=1;
+				*terminerMap=1;
 				continuer=0;
 			}
 			carte[positionJoueur.x][positionJoueur.y]=CIEL;
@@ -333,7 +409,7 @@ if (sourisActuel==souris[DROITE])
         SDL_FreeSurface(souris[i]);
 }
 
-void deplacerJoueur(int carte[][NB_BLOCS_HAUTEUR], SDL_Rect *pos, int direction)
+void deplacerJoueur(int** carte, SDL_Rect *pos, int direction)
 {	
     switch(direction)
     {

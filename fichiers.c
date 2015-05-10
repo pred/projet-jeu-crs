@@ -4,7 +4,7 @@
 #include "constantes.h"
 #include "fichiers.h"
 
-int chargerNiveau(int niveau[][NB_BLOCS_HAUTEUR],char* c)
+int chargerNiveau(int** niveau,char* c)
 {
     FILE* fichier = NULL;
     char ligneFichier[NB_BLOCS_LARGEUR * NB_BLOCS_HAUTEUR + 1] = {0};
@@ -48,23 +48,3 @@ int chargerNiveau(int niveau[][NB_BLOCS_HAUTEUR],char* c)
     return 1;
 }
 
-int sauvegarderNiveau(int niveau[][NB_BLOCS_HAUTEUR])
-{
-    FILE* fichier = NULL;
-    int i = 0, j = 0;
-
-    fichier = fopen("niveaux.lvl", "w");
-    if (fichier == NULL)
-        return 0;
-
-    for (i = 0 ; i < NB_BLOCS_LARGEUR ; i++)
-    {
-        for (j = 0 ; j < NB_BLOCS_HAUTEUR ; j++)
-        {
-            fprintf(fichier, "%d", niveau[j][i]);
-        }
-    }
-
-    fclose(fichier);
-    return 1;
-}
