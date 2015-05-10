@@ -74,7 +74,7 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 	createtexte("JOUER", surface, texture,renderer,  window, 250, 150,police);
 	createtexte("OPTIONS", surface, texture,renderer,  window, 250, 225, police);
 	createtexte("QUITTER", surface, texture,renderer,  window, 250, 300, police);
-	
+	SDL_UpdateWindowSurface(window);
 	TTF_CloseFont(police);  
 		TTF_Quit(); 
 	 free(police);
@@ -107,6 +107,7 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>225 && event.button.x<=400 && event.button.y<=275){
 		chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
 		 opt();
+		 
 		break;
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>300 && event.button.x<=400 && 			event.button.y<=350){

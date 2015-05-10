@@ -1,29 +1,34 @@
-#include "menu.h"
+#include "opt.h"
 
-void opt(){
-	int terminer=0;
+void opt(SDL_Window *window,SDL_Renderer* renderer, SDL_Surface *surface, SDL_Texture *texture, int *terminermenu){
+	int termineropt=0;
 	SDL_Event event;
 	SDL_Init(SDL_INIT_VIDEO);
 
 	/*creation fenetre */
-	SDL_Window* window2 = SDL_CreateWindow("options",
-        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,800, 600, 0);
-	SDL_Renderer * renderer2 = SDL_CreateRenderer(window2, -1, SDL_RENDERER_ACCELERATED);
-	SDL_RenderPresent(renderer2);
+	TTF_Font *police1 = NULL;
+
 	
-	 while (terminer==0)        
+	createtexte("800*1200", surface, texture,renderer,  window, 250, 150,police1);
+	createtexte("1200*1400", surface, texture,renderer,  window, 250, 225, police1);
+	createtexte("1400*1800", surface, texture,renderer,  window, 250, 300, police1);
+
+	SDL_UpdateWindowSurface(window);
+	TTF_CloseFont(police1);  
+		TTF_Quit(); 
+	 free(police1);
+	
+	
+	 while (termineropt==0)        
         {        
            SDL_WaitEvent(&event);        
             
            switch(event.type)        
            {        
            case SDL_QUIT:        
-              terminer=1;
+              termineropt=1;
+			  *terminermenu=1;
 		
-		SDL_DestroyRenderer(renderer2);
-		SDL_DestroyWindow(window2);  
-		
-		SDL_Quit()  ;     
                break;
 	}
 
