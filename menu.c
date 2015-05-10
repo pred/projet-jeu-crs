@@ -1,4 +1,6 @@
 #include "menu.h"
+#include "niveau.h"
+#include "cleanup.h"
 
 void menu();	
 

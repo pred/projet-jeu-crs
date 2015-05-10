@@ -1,7 +1,0 @@
-personnage
-
-x double
-y double
-bonus char* []
-clé char* []
-orientation

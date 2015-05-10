@@ -17,8 +17,8 @@ void map()
 
 	SDL_Surface *surface=NULL;
 	SDL_UpdateWindowSurface(screen);
-	int* terminer=0;
-	jouer(screen,surface,renderer,terminer); 
+	int terminer=0;
+	jouer(screen,surface,renderer,&terminer); 
 	
 	
 	while (terminer==0)        

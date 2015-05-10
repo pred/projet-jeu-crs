@@ -9,7 +9,7 @@
 #include "afficher.c"
 
 
-void jouer(SDL_Window* ecran, SDL_Surface* surface,SDL_Renderer* renderer,int* a)
+void jouer(SDL_Window* ecran, SDL_Surface* surface,SDL_Renderer* renderer, int* a)
 {
 	SDL_Surface *souris[4] = {NULL};
 	SDL_Surface *mur = NULL, *fromage = NULL, *piege = NULL, *sourisActuel = NULL, *porte=NULL, *ciel=NULL; 
@@ -113,7 +113,7 @@ switch(event.type)
 {
     case SDL_QUIT:
         continuer = 0;
-	a=1;
+	*a=1;
         break;
     case SDL_KEYDOWN:
         switch(event.key.keysym.sym)
@@ -151,7 +151,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 					SDL_UpdateWindowSurface(ecran);
 				win(nbrfromage);
-				 a=1;
+				*a=1;
 				continuer=0;
 				
 			}
@@ -170,7 +170,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 					SDL_UpdateWindowSurface(ecran);
 				win(nbrfromage);
-				 a=1; 
+				*a=1; 
 				continuer=0;
 				 
 			}
@@ -234,7 +234,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 			SDL_UpdateWindowSurface(ecran);
 				win(nbrfromage);
-				 a=1;
+				*a=1;
 				continuer=0; 
 			}
 			
@@ -253,7 +253,7 @@ if (sourisActuel==souris[DROITE])
 			afficherimage(ecran,renderer, ciel,texture[positionJoueur.x][positionJoueur.y],positionJoueur.x,positionJoueur.y);
 			SDL_UpdateWindowSurface(ecran);			
 				win(nbrfromage);
-				 a=1;
+				*a=1;
 				continuer=0;
 			}
 			carte[positionJoueur.x][positionJoueur.y]=CIEL;
