@@ -141,7 +141,7 @@ void map()
             }
         }
         }
-
+        
 
      while (continuer==1)
     {   
@@ -213,6 +213,14 @@ if (sourisActuel==souris[DROITE] && continuer==1)
                 continuer=0;
                 
             }
+            else if (carte[positionJoueur.x+1][positionJoueur.y+1]==PIEGE)
+            {
+                carte[positionJoueur.x][positionJoueur.y]=CIEL;
+                afficherimage(ecran,renderer, ciel,texture,positionJoueur.x,positionJoueur.y);
+                    SDL_UpdateWindowSurface(ecran);
+                gameOver();
+                continuer=0;    
+            }
             else
             {    
                 carte[positionJoueur.x][positionJoueur.y]=CIEL;
@@ -235,6 +243,14 @@ if (sourisActuel==souris[DROITE] && continuer==1)
                 continuer=0;
                  
             }
+            else if (carte[positionJoueur.x+1][positionJoueur.y]==PIEGE)
+            {
+                carte[positionJoueur.x][positionJoueur.y]=CIEL;
+                afficherimage(ecran,renderer, ciel,texture,positionJoueur.x,positionJoueur.y);
+                    SDL_UpdateWindowSurface(ecran);
+                gameOver();
+                continuer=0; 
+            }
             else
             {
                 carte[positionJoueur.x][positionJoueur.y]=CIEL;
@@ -253,41 +269,44 @@ if (sourisActuel==souris[DROITE] && continuer==1)
             positionJoueur.x++;
             positionJoueur.y--;
             sourisActuel=souris[HAUT];
-        carte[positionJoueur.x][positionJoueur.y]=SOURIS;
+            
+            carte[positionJoueur.x][positionJoueur.y]=SOURIS;
             afficherimage(ecran,renderer, souris[HAUT], texture,positionJoueur.x,positionJoueur.y);
             SDL_UpdateWindowSurface(ecran);
             SDL_Delay(200);
             carte[positionJoueur.x][positionJoueur.y]=CIEL; 
-        afficherimage(ecran,renderer, ciel, texture,positionJoueur.x,positionJoueur.y); 
+            afficherimage(ecran,renderer, ciel, texture,positionJoueur.x,positionJoueur.y); 
         
-        positionJoueur.x--;
-        positionJoueur.y--;
-        sourisActuel=souris[GAUCHE];
-        carte[positionJoueur.x][positionJoueur.y]=SOURIS;
+            positionJoueur.x--;
+            positionJoueur.y--;
+            sourisActuel=souris[GAUCHE];
+            
+            carte[positionJoueur.x][positionJoueur.y]=SOURIS;
             afficherimage(ecran,renderer, souris[GAUCHE], texture,positionJoueur.x,positionJoueur.y);
             SDL_UpdateWindowSurface(ecran);
             SDL_Delay(200);
               }
-              else if (carte[positionJoueur.x][positionJoueur.y+1]==MUR && carte[positionJoueur.x+1][positionJoueur.y+1]==CIEL)
-            {   carte[positionJoueur.x][positionJoueur.y]=CIEL;
-            afficherimage(ecran,renderer, ciel,texture,positionJoueur.x,positionJoueur.y);
-            positionJoueur.x++;
-            positionJoueur.y++;
-            sourisActuel=souris[BAS];
-        carte[positionJoueur.x][positionJoueur.y]=SOURIS;
-            afficherimage(ecran,renderer, souris[BAS], texture,positionJoueur.x,positionJoueur.y);
-            SDL_UpdateWindowSurface(ecran);
-            SDL_Delay(200);
-            carte[positionJoueur.x][positionJoueur.y]=CIEL; 
-        afficherimage(ecran,renderer, ciel, texture,positionJoueur.x,positionJoueur.y); 
-        
-        positionJoueur.x--;
-        positionJoueur.y++;
-        sourisActuel=souris[GAUCHE];
-        carte[positionJoueur.x][positionJoueur.y]=SOURIS;
-            afficherimage(ecran,renderer, souris[GAUCHE], texture,positionJoueur.x,positionJoueur.y);
-            SDL_UpdateWindowSurface(ecran);
-            SDL_Delay(200);
+            else if (carte[positionJoueur.x][positionJoueur.y+1]==MUR && carte[positionJoueur.x+1][positionJoueur.y+1]==CIEL)
+            {   
+                carte[positionJoueur.x][positionJoueur.y]=CIEL;
+                afficherimage(ecran,renderer, ciel,texture,positionJoueur.x,positionJoueur.y);
+                positionJoueur.x++;
+                positionJoueur.y++;
+                sourisActuel=souris[BAS];
+                carte[positionJoueur.x][positionJoueur.y]=SOURIS;
+                afficherimage(ecran,renderer, souris[BAS], texture,positionJoueur.x,positionJoueur.y);
+                SDL_UpdateWindowSurface(ecran);
+                SDL_Delay(200);
+                carte[positionJoueur.x][positionJoueur.y]=CIEL; 
+                afficherimage(ecran,renderer, ciel, texture,positionJoueur.x,positionJoueur.y); 
+                
+                positionJoueur.x--;
+                positionJoueur.y++;
+                sourisActuel=souris[GAUCHE];
+                carte[positionJoueur.x][positionJoueur.y]=SOURIS;
+                afficherimage(ecran,renderer, souris[GAUCHE], texture,positionJoueur.x,positionJoueur.y);
+                SDL_UpdateWindowSurface(ecran);
+                SDL_Delay(200);
         
             }
     }
@@ -302,7 +321,15 @@ if (sourisActuel==souris[DROITE] && continuer==1)
                 continuer=0; 
             }
             
-            else 
+            else if(carte[positionJoueur.x-1][positionJoueur.y]==PIEGE)
+            {
+                carte[positionJoueur.x][positionJoueur.y]=CIEL;
+                afficherimage(ecran,renderer, ciel,texture,positionJoueur.x,positionJoueur.y);
+                    SDL_UpdateWindowSurface(ecran);
+                gameOver();
+                continuer=0; 
+            }
+            else
             {
                 carte[positionJoueur.x][positionJoueur.y]=CIEL;
                 afficherimage(ecran,renderer, ciel,texture,positionJoueur.x,positionJoueur.y);
@@ -322,6 +349,14 @@ if (sourisActuel==souris[DROITE] && continuer==1)
                 win(nbrfromage);
                 
                 continuer=0;
+            }
+            else if(carte[positionJoueur.x-1][positionJoueur.y]==PIEGE)
+            {
+                carte[positionJoueur.x][positionJoueur.y]=CIEL;
+                afficherimage(ecran,renderer, ciel,texture,positionJoueur.x,positionJoueur.y);
+                    SDL_UpdateWindowSurface(ecran);
+                gameOver();
+                continuer=0; 
             }
             else
             {

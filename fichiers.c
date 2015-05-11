@@ -37,7 +37,7 @@ int chargerNiveau(int** niveau,char* c)
                 case '4':
                     niveau[j][i] = 4;
                     break;
-		case '5':
+		        case '5':
                     niveau[j][i] = 5;
                     break;
             }

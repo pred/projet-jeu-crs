@@ -91,3 +91,27 @@ void win(char* h){
 		
 		     	
 }
+
+void gameOver()
+{
+	SDL_Window * window = SDL_CreateWindow("C'est Gagné!!",
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,300, 200, 0);
+	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_RenderPresent(renderer);
+	
+	TTF_Font *police = NULL;
+	police = TTF_OpenFont("gargi.ttf", 10);
+	SDL_Color color={255,255,255};
+	SDL_Surface *gagne;
+	gagne =TTF_RenderText_Solid(police,"Vous avez perdu! Vous avez touche un piege",color);
+	SDL_Texture *V=SDL_CreateTextureFromSurface(renderer,gagne);
+	SDL_Rect d={50,50,100,100};
+	SDL_RenderCopy(renderer,V,NULL,&d);
+	SDL_BlitSurface(gagne,NULL,SDL_GetWindowSurface(window),&d);
+	
+	
+	SDL_UpdateWindowSurface(window);
+	SDL_Delay(2000);
+	SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);  
+}
