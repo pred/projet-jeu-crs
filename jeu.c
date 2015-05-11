@@ -19,6 +19,13 @@ void map()
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,TAILLE_BLOC*NB_BLOCS_LARGEUR,TAILLE_BLOC*NB_BLOCS_HAUTEUR, 0);
     
     SDL_Renderer * renderer = SDL_CreateRenderer(ecran, -1, SDL_RENDERER_ACCELERATED);
+
+    if (renderer == NULL)
+    {    
+        SDL_ShowSimpleMessageBox(0, "Renderer init error",
+        SDL_GetError(), ecran);
+    }  
+
     SDL_RenderPresent(renderer);
 
     SDL_Surface *surface=NULL;
@@ -74,6 +81,7 @@ void map()
 
     //memset(carte, 0, sizeof(carte));
     SDL_Texture* texture;
+    texture = SDL_CreateTextureFromSurface(renderer,surface);
 
     mur = IMG_Load("brique.png");
     ciel=IMG_Load("ciel2.png");
@@ -149,17 +157,18 @@ void map()
 
 
        while (SDL_PollEvent(&event)) {
-
         switch(event.type)
         {
             case SDL_QUIT:
+            printf("on quitte");
             continuer = 0;
-
             break;
+
             case SDL_KEYDOWN:
             switch(event.key.keysym.sym)
             {
                 case SDLK_UP:
+                printf("key up");
                 carte[positionJoueur.x][positionJoueur.y]=CIEL;
                 afficherimage(ecran,renderer, ciel ,texture,positionJoueur.x,positionJoueur.y);
                 if(deplacerJoueur(carte, &positionJoueur, HAUT)==1)
