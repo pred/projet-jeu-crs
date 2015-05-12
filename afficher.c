@@ -35,7 +35,7 @@ void afficherimage(SDL_Window* ecran, SDL_Renderer* renderer, SDL_Surface *surfa
 
 	texture=SDL_CreateTextureFromSurface(renderer,surface);
 		
-	SDL_Rect Rect={l*34,m*34, 34,34};
+	SDL_Rect Rect={l*32,m*32, 32,32};
 
 	SDL_RenderCopy(renderer, texture, NULL, &Rect);
 	SDL_BlitSurface(surface,NULL,SDL_GetWindowSurface(ecran),&Rect);

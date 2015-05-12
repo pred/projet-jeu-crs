@@ -7,6 +7,7 @@
 #include "constantes.h"
 #include "jeu.h"
 #include "afficher.h"
+#define FPS 10
 
 void map()
 {
@@ -142,11 +143,18 @@ void map()
         }
         }
         
-
+int limit;
+int test;
      while (continuer==1)
-    {   
-    
-        
+    {  
+    test = SDL_GetTicks();
+     if (limit> test + FPS){
+           SDL_Delay(FPS);
+}
+else{
+SDL_Delay(limit - test);
+}
+       limit = SDL_GetTicks() + FPS; 
         
    while (SDL_PollEvent(&event)) {
 
