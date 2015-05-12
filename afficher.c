@@ -94,7 +94,7 @@ void win(char* h){
 
 void gameOver()
 {
-	SDL_Window * window = SDL_CreateWindow("C'est Gagné!!",
+	SDL_Window * window = SDL_CreateWindow("Vous avez perdu ...",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,300, 200, 0);
 	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_RenderPresent(renderer);

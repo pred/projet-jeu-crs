@@ -85,25 +85,26 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
             
            switch(event.type)        
            {        
-           case SDL_QUIT:        
-              *terminer=1; 
-		terminermenu=1;
+           		case SDL_QUIT:       
+              		*terminer=1; 
+					terminermenu=1;
+              	break;
+
+	   			case SDL_MOUSEBUTTONDOWN:
+				/*cas ou l'on clique sur jouer */
+					if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>150 && event.button.x<=400 && 		event.button.y<=200)
+					{
+					chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
 	 
-               break;
-	   case SDL_MOUSEBUTTONDOWN:
-		/*cas ou l'on clique sur jouer */
-		if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>150 && event.button.x<=400 && 		event.button.y<=200){
-	chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
-	 
-	niveau(window,renderer,surface,texture,&terminermenu);	
-	chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");	
+						niveau(window,renderer,surface,texture,&terminermenu);	
+						chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");	
 		 
 		
 		
 		/* redirection vers les niveaux */ 
 		 
 		break;
-		}
+						}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>225 && event.button.x<=400 && event.button.y<=275){
 		chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
 		 opt(window,renderer,surface,texture, &terminermenu);

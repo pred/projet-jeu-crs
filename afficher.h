@@ -12,6 +12,7 @@
 	void chargerimage(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *surface,SDL_Texture *texture, int i, int j, char *image);
 	void afficherimage(SDL_Window* ecran, SDL_Renderer* renderer, SDL_Surface *surface, SDL_Texture* texture,int l,int m);
 	char attrapefromage(int i, int j, char c);
+	void win(char* h);
 	void gameOver();
 
 #endif
