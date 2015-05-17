@@ -17,7 +17,7 @@ SDL_Surface * noir1;
 	
 
 int main() {
-	noir1= SDL_LoadBMP("noir.bmp");
+	
 	int terminer=0;
 	
 	/*initialisation sdl*/    
@@ -73,7 +73,8 @@ int main() {
 
 
        
-void menu(int* terminer,Contenu* C){        
+void menu(int* terminer,Contenu* C){  
+	noir1= SDL_LoadBMP("noir.bmp");      
     int terminermenu = 0;        
 	SDL_Event event;        
                  

@@ -23,7 +23,7 @@ void createtexte(char* mot, Contenu* C, int i,int j,TTF_Font *police){
 
 }
 void chargerimage(Contenu* C, int i, int j, SDL_Surface* surface){
-	 
+	 C->surface=surface;
 	 C->texture = SDL_CreateTextureFromSurface(C->renderer,
         C->surface);
 	SDL_Rect dstrect1 = {i, j, 200,200 };
