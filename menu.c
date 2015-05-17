@@ -12,10 +12,12 @@
 #include "constantes.h"
 
 
+SDL_Surface * noir1;
 
 	
 
 int main() {
+	noir1= SDL_LoadBMP("noir.bmp");
 	int terminer=0;
 	
 	/*initialisation sdl*/    
@@ -64,6 +66,7 @@ int main() {
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	SDL_FreeSurface(noir1);
 	free(C);
 	return 0;
 }
@@ -104,10 +107,10 @@ void menu(int* terminer,Contenu* C){
 				/*cas ou l'on clique sur jouer */
 					if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>150 && event.button.x<=400 && 		event.button.y<=200)
 					{
-					chargerimage(C,0,0,"noir.bmp");
+					chargerimage(C,0,0,noir);
 	 
 						niveau(C,&terminermenu);	
-						chargerimage(C,0,0,"noir.bmp");	
+						chargerimage(C,0,0,noir1);	
 		 
 		
 		
@@ -116,9 +119,9 @@ void menu(int* terminer,Contenu* C){
 		break;
 						}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>225 && event.button.x<=400 && event.button.y<=275){
-		chargerimage(C,0,0,"noir.bmp");
+		chargerimage(C,0,0,noir1);
 		 opt(C, &terminermenu);
-		 chargerimage(C,0,0,"noir.bmp");
+		 chargerimage(C,0,0,noir1);
 		break;
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>300 && event.button.x<=400 && 			event.button.y<=350){
