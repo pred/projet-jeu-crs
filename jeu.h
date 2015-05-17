@@ -4,7 +4,7 @@
 
 	int** chargerMap(char *s);
     void afficheJeu(Contenu* C,int** carte,int direction);
-   
+   void chargerImage();
     int map(Contenu* C,char* s);
     SDL_Rect positionS(int **carte);
     void freeMap(int **carte);
@@ -15,5 +15,6 @@
     int collisionFromage(int** carte,SDL_Rect* pos,int direction,Contenu* C,int* fromage);
     int collisionFleche(int** carte,SDL_Rect* pos,int* direction,Contenu* C);
     SDL_Rect positionC(int **carte);
+    void freeImage();
 
 #endif

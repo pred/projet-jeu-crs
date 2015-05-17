@@ -1,5 +1,5 @@
 #include "afficher.h"
-#include "constantes.h"
+#include "constantes.h" 
 #include <stdio.h>
 
 void createtexte(char* mot, Contenu* C, int i,int j,TTF_Font *police){

@@ -8,6 +8,17 @@
 #include "jeu.h"
 #include "afficher.h"
 #include "constantes.h"
+SDL_Surface** souris;
+SDL_Surface *mur ; 
+SDL_Surface *fromage;
+SDL_Surface *piege;
+SDL_Surface *sourisActuel;
+SDL_Surface *porte;
+SDL_Surface *ciel;
+SDL_Surface *fleched;
+SDL_Surface *flecheg;
+SDL_Surface *chat; 
+
 
 
 int** chargerMap(char *s){
@@ -54,10 +65,8 @@ void freeMap(int ** carte){
     }
     free(carte);
 }
-void afficheJeu(Contenu* C,int** carte,int direction){
-    
-    int i = 0, j = 0;   
-    SDL_Surface** souris = NULL;
+void chargerImage(){
+    int i = 0;
     souris = (SDL_Surface**) malloc (sizeof(SDL_Surface*)*5);
     if (souris == NULL) {
         
@@ -66,8 +75,6 @@ void afficheJeu(Contenu* C,int** carte,int direction){
         }
         free(souris);
     }
-    SDL_Surface *mur = NULL, *fromage = NULL, *piege = NULL, *sourisActuel = NULL, *porte=NULL, *ciel=NULL,*fleched=NULL, *flecheg=NULL, *chat=NULL; 
-          
     mur = IMG_Load("brique.png");
     ciel=IMG_Load("ciel2.png");
     fromage = IMG_Load("fromage.jpg");
@@ -80,7 +87,28 @@ void afficheJeu(Contenu* C,int** carte,int direction){
     fleched=IMG_Load("fleched.png");
     flecheg=IMG_Load("flecheg.png");
     chat=IMG_Load("chat.png");
+}
+void freeImage(){
+    SDL_FreeSurface(mur);
+    SDL_FreeSurface(ciel);
+    SDL_FreeSurface(fromage);
+    SDL_FreeSurface(piege);
+    SDL_FreeSurface(porte);
+    int i;
+    for (i=0; i<5;i++) {
+            SDL_FreeSurface(souris[i]);
+        }
+        free(souris);
+    SDL_FreeSurface(fleched);
+    SDL_FreeSurface(flecheg);
+    SDL_FreeSurface(chat);
 
+}
+void afficheJeu(Contenu* C,int** carte,int direction){
+    
+    
+    
+    int i,j;
     sourisActuel=souris[direction];
             
         
@@ -631,22 +659,24 @@ int map(Contenu* C,char* s)
             int direction=DROITE;
             int position=HAUT;
             SDL_Rect positionSouris=positionS(carte);
+            chargerImage();
             afficheJeu(C,carte,direction);
        
               
             while(terminer==0){
-            while(evenement(&terminer,carte,&positionSouris,&direction,C,&fromage,&position)==0 && terminer==0){
-                positionSouris=positionS(carte);
-                collisionMur(carte,&direction,&position,&positionSouris,&terminer,C,&fromage);
-                
-                afficheJeu(C,carte,direction);
-                positionSouris=positionS(carte);
-                SDL_Delay(20);
-            }
+                while(evenement(&terminer,carte,&positionSouris,&direction,C,&fromage,&position)==0 && terminer==0){
+                    positionSouris=positionS(carte);
+                    collisionMur(carte,&direction,&position,&positionSouris,&terminer,C,&fromage);
+                    
+                    afficheJeu(C,carte,direction);
+                    positionSouris=positionS(carte);
+                    SDL_Delay(20);
+                }
             }
             printf("%d",fromage);
             return fromage;
-      
+  freeImage();
+  freeMap(carte);    
 }
 
 
