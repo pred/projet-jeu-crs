@@ -22,8 +22,8 @@ void createtexte(char* mot, Contenu* C, int i,int j,TTF_Font *police){
 	
 
 }
-void chargerimage(Contenu* C, int i, int j, char *image){
-	 C->surface = SDL_LoadBMP(image);
+void chargerimage(Contenu* C, int i, int j, SDL_Surface*){
+	 
 	 C->texture = SDL_CreateTextureFromSurface(C->renderer,
         C->surface);
 	SDL_Rect dstrect1 = {i, j, 200,200 };
@@ -31,6 +31,7 @@ void chargerimage(Contenu* C, int i, int j, char *image){
 	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&dstrect1);
 
 	SDL_UpdateWindowSurface(C->window);
+
 }
 
 void afficherimage(Contenu* C,SDL_Surface* surface,int l,int m){
