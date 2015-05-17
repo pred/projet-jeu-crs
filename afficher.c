@@ -37,7 +37,7 @@ void afficherimage(Contenu* C,SDL_Surface* surface,int l,int m){
 	C->surface=surface;
 	C->texture=SDL_CreateTextureFromSurface(C->renderer,C->surface);
 		
-	SDL_Rect Rect={l*32,m*32, 32,32};
+	SDL_Rect Rect={l*34,m*34, 34,34};
 
 	SDL_RenderCopy(C->renderer, C->texture, NULL, &Rect);
 	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&Rect);
