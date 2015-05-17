@@ -85,9 +85,9 @@ void menu(int* terminer,Contenu* C){
 	TTF_Font *police = NULL;
 
 	
-	createtexte("JOUER", C, 250, 150,police);
-	createtexte("OPTIONS", C, 250, 225, police);
-	createtexte("QUITTER", C, 250, 300, police);
+	createtexte("JOUER", C, 250, 150, 50);
+	createtexte("OPTIONS", C, 250, 225, 50);
+	createtexte("QUITTER", C, 250, 300, 50);
 	SDL_UpdateWindowSurface(C->window);
 	TTF_CloseFont(police);  
 	TTF_Quit(); 
