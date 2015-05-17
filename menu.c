@@ -107,7 +107,7 @@ void menu(int* terminer,Contenu* C){
 				/*cas ou l'on clique sur jouer */
 					if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>150 && event.button.x<=400 && 		event.button.y<=200)
 					{
-					chargerimage(C,0,0,noir);
+					chargerimage(C,0,0,noir1);
 	 
 						niveau(C,&terminermenu);	
 						chargerimage(C,0,0,noir1);	
