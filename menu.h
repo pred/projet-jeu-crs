@@ -8,14 +8,15 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "constantes.h"
 
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 850
+#define WINDOW_HEIGHT 680
 #define WINDOW_TITLE "Trip Trap"
 
 
-void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *surface, SDL_Texture *texture);
+void menu(int* terminer,Contenu* C);
 
 #endif
 

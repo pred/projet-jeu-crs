@@ -9,9 +9,9 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "afficher.h"
+#include "constantes.h"
 
-
-void opt(SDL_Window *window,SDL_Renderer* renderer, SDL_Surface *surface, SDL_Texture *texture, int *terminermenu);
+void opt(Contenu* C, int *terminermenu);
 
 
 #endif

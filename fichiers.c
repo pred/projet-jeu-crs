@@ -16,30 +16,39 @@ int chargerNiveau(int** niveau,char* c)
 
     fgets(ligneFichier, NB_BLOCS_LARGEUR * NB_BLOCS_HAUTEUR + 1, fichier);
 
-    for (i = 0 ; i < NB_BLOCS_LARGEUR ; i++)
+    for (i = 0 ; i < NB_BLOCS_HAUTEUR ; i++)
     {
-        for (j = 0 ; j < NB_BLOCS_HAUTEUR ; j++)
+        for (j = 0 ; j < NB_BLOCS_LARGEUR ; j++)
         {
             switch (ligneFichier[(i * NB_BLOCS_LARGEUR) + j])
             {
                 case '0':
-                    niveau[j][i] = 0;
+                    niveau[i][j] = 0;
                     break;
                 case '1':
-                    niveau[j][i] = 1;
+                    niveau[i][j] = 1;
                     break;
                 case '2':
-                    niveau[j][i] = 2;
+                    niveau[i][j] = 2;
                     break;
                 case '3':
-                    niveau[j][i] = 3;
+                    niveau[i][j] = 3;
                     break;
                 case '4':
-                    niveau[j][i] = 4;
+                    niveau[i][j] = 4;
                     break;
 		        case '5':
-                    niveau[j][i] = 5;
+                    niveau[i][j] = 5;
                     break;
+                case '6':
+                    niveau[i][j]=6;
+                    break;
+                case '7':
+                    niveau[i][j]=7;
+                    break;
+                case '8':
+                    niveau[i][j]=8;
+                    break;   
             }
         }
     }

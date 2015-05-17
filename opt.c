@@ -1,6 +1,7 @@
 #include "opt.h"
+#include "constantes.h"
 
-void opt(SDL_Window *window,SDL_Renderer* renderer, SDL_Surface *surface, SDL_Texture *texture, int *terminermenu){
+void opt(Contenu* C, int *terminermenu){
 	int termineropt=0;
 	SDL_Event event;
 	SDL_Init(SDL_INIT_VIDEO);
@@ -10,11 +11,11 @@ void opt(SDL_Window *window,SDL_Renderer* renderer, SDL_Surface *surface, SDL_Te
 	TTF_Font *police1 = NULL;
 
 	
-	createtexte("800*1200", surface, texture,renderer,  window, 250, 150,police1);
-	createtexte("1200*1400", surface, texture,renderer,  window, 250, 225, police1);
-	createtexte("1400*1800", surface, texture,renderer,  window, 250, 300, police1);
+	createtexte("800*1200", C, 250, 150,police1);
+	createtexte("1200*1400", C, 250, 225, police1);
+	createtexte("1400*1800", C, 250, 300, police1);
 
-	SDL_UpdateWindowSurface(window);
+	SDL_UpdateWindowSurface(C->window);
 	TTF_CloseFont(police1);  
 		TTF_Quit(); 
 	 free(police1);
@@ -36,3 +37,5 @@ void opt(SDL_Window *window,SDL_Renderer* renderer, SDL_Surface *surface, SDL_Te
 	}
 
 }
+
+

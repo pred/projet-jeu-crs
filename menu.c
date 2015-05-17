@@ -1,21 +1,30 @@
 #include "menu.h"
 #include "niveau.h"
-#include "cleanup.h"
+#include "constantes.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "afficher.h"
 #include "opt.h"
+#include "constantes.h"
 
-void menu();	
+
+
+	
 
 int main() {
 	int terminer=0;
 	
-	/*initialisation sdl et ttf*/    
+	/*initialisation sdl*/    
         SDL_Init(SDL_INIT_VIDEO);        
          
 
 	/*creation fenetre*/    
         SDL_Window * window = SDL_CreateWindow("Trip",
-        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,800, 600, 0);
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,850, 612, 0);
     if (window == NULL)
      {   SDL_ShowSimpleMessageBox(0, "Window init error", SDL_GetError(),
             window);
@@ -41,43 +50,44 @@ int main() {
     {    SDL_ShowSimpleMessageBox(0, "Texture init error",
             SDL_GetError(), window);
     }
-	  	
+	Contenu* C=creerFenetre(window, renderer, surface,  texture);  	
 		
-	
+	SDL_UpdateWindowSurface(C->window);
     	
 	
 	while(terminer==0){
 	
-	menu(&terminer, window, renderer, surface, texture);
+	menu(&terminer, C);
 	}	
 	
 	SDL_FreeSurface(surface);
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	free(C);
 	return 0;
 }
 
 
        
-void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *surface, SDL_Texture *texture){        
-        int terminermenu = 0;        
+void menu(int* terminer,Contenu* C){        
+    int terminermenu = 0;        
 	SDL_Event event;        
                  
 	SDL_Rect dstrect = { 575, 400, 400,200 };
-	SDL_RenderCopy(renderer, texture, NULL, &dstrect);
-	 SDL_BlitSurface(surface,NULL,SDL_GetWindowSurface(window),&dstrect);
+	SDL_RenderCopy(C->renderer, C->texture, NULL, &dstrect);
+	 SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&dstrect);
 	TTF_Init();
 	TTF_Font *police = NULL;
 
 	
-	createtexte("JOUER", surface, texture,renderer,  window, 250, 150,police);
-	createtexte("OPTIONS", surface, texture,renderer,  window, 250, 225, police);
-	createtexte("QUITTER", surface, texture,renderer,  window, 250, 300, police);
-	SDL_UpdateWindowSurface(window);
+	createtexte("JOUER", C, 250, 150,police);
+	createtexte("OPTIONS", C, 250, 225, police);
+	createtexte("QUITTER", C, 250, 300, police);
+	SDL_UpdateWindowSurface(C->window);
 	TTF_CloseFont(police);  
-		TTF_Quit(); 
-	 free(police);
+	TTF_Quit(); 
+	free(police);
 
         while (terminermenu==0)        
         {        
@@ -94,10 +104,10 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 				/*cas ou l'on clique sur jouer */
 					if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>150 && event.button.x<=400 && 		event.button.y<=200)
 					{
-					chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
+					chargerimage(C,0,0,"noir.bmp");
 	 
-						niveau(window,renderer,surface,texture,&terminermenu);	
-						chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");	
+						niveau(C,&terminermenu);	
+						chargerimage(C,0,0,"noir.bmp");	
 		 
 		
 		
@@ -106,9 +116,9 @@ void menu(int* terminer,SDL_Window *window,SDL_Renderer *renderer, SDL_Surface *
 		break;
 						}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>225 && event.button.x<=400 && event.button.y<=275){
-		chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
-		 opt(window,renderer,surface,texture, &terminermenu);
-		 chargerimage(window, renderer,surface ,texture ,0,0,"noir.bmp");
+		chargerimage(C,0,0,"noir.bmp");
+		 opt(C, &terminermenu);
+		 chargerimage(C,0,0,"noir.bmp");
 		break;
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=250 && event.button.y>300 && event.button.x<=400 && 			event.button.y<=350){

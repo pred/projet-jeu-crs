@@ -7,12 +7,15 @@
 #include <math.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include "constantes.h"
 
-	void createtexte(char* mot, SDL_Surface* surface, SDL_Texture* texture,SDL_Renderer* renderer, SDL_Window* window, int i,int j,TTF_Font *police);
-	void chargerimage(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *surface,SDL_Texture *texture, int i, int j, char *image);
-	void afficherimage(SDL_Window* ecran, SDL_Renderer* renderer, SDL_Surface *surface, SDL_Texture* texture,int l,int m);
-	char attrapefromage(int i, int j, char c);
-	void win(char* h);
+
+	void createtexte(char* mot,Contenu* C, int i,int j,TTF_Font *police);
+	void chargerimage(Contenu* C, int i, int j, char *image);
+	void afficherimage(Contenu* C,SDL_Surface* surface, int l,int m);
+	
+	void win(int* h);
 	void gameOver();
+	Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* surface, SDL_Texture* texture);
 
 #endif

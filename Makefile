@@ -3,8 +3,8 @@ LD_FLAGS=-lSDL2 -lSDL2_ttf -lSDL2_image
 
 all: menu
 
-menu: menu.o niveau.o opt.o cleanup.o afficher.o jeu.o fichiers.o
-	gcc -o menu menu.o niveau.o opt.o cleanup.o afficher.o jeu.o fichiers.o ${LD_FLAGS}
+menu: menu.o niveau.o opt.o afficher.o jeu.o fichiers.o
+	gcc -o menu menu.o niveau.o opt.o afficher.o jeu.o fichiers.o ${LD_FLAGS}
 
 menu.o: menu.c 
 	gcc ${CC_FLAGS} -c menu.c
@@ -15,8 +15,7 @@ niveau.o: niveau.c
 opt.o: opt.c
 	gcc ${CC_FLAGS} -c opt.c
 
-cleanup.o: cleanup.c 
-	gcc ${CC_FLAGS} -c cleanup.c
+
 
 jeu.o: jeu.c 
 	gcc ${CC_FLAGS} -c jeu.c
