@@ -25,6 +25,6 @@ afficher.o: afficher.c
 	gcc ${CC_FLAGS} -c afficher.c
 
 clean:
-	rm -rf *.o menu
+	rm -rf *.o
 
 
