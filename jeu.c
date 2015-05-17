@@ -7,7 +7,11 @@
 #include "constantes.h"
 #include "jeu.h"
 #include "afficher.h"
+<<<<<<< HEAD
 #include "constantes.h"
+=======
+#define FPS 10
+>>>>>>> 36c6464a5522ccf5aeece2d95c0b44a2049c1ac8
 
 
 int** chargerMap(char *s){
@@ -150,6 +154,7 @@ SDL_Rect positionS(int **carte){
                
             }
         }
+<<<<<<< HEAD
         }
         return positionSouris ;
 }
@@ -171,6 +176,32 @@ SDL_Rect positionC(int **carte){
         return positionChat ;
 }
 
+=======
+<<<<<<< HEAD
+        }
+        
+int limit;
+int test;
+     while (continuer==1)
+    {  
+    test = SDL_GetTicks();
+     if (limit> test + FPS){
+           SDL_Delay(FPS);
+}
+else{
+SDL_Delay(limit - test);
+}
+       limit = SDL_GetTicks() + FPS; 
+        
+   while (SDL_PollEvent(&event)) {
+=======
+    }
+
+
+    while (continuer==1)
+    {   
+>>>>>>> cd8c16a4f0ee0f33f5ced8813a96069a2461337f
+>>>>>>> 36c6464a5522ccf5aeece2d95c0b44a2049c1ac8
 
 int evenement(int* terminer, int** carte,SDL_Rect* positionSouris,int* direction,Contenu* C,int* fromage,int* position){
      SDL_Event event;
