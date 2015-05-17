@@ -75,8 +75,7 @@ void win(int* h){
 	SDL_UpdateWindowSurface(c->window);
 	SDL_Delay(2000);
 	TTF_Quit(); 
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);  
+	freeFenetre(c); 
 	
 		
 		     	
@@ -96,8 +95,8 @@ void gameOver()
 	SDL_UpdateWindowSurface(window);
 	SDL_Delay(2000);
 	TTF_Quit(); 
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);  
+	freeFenetre(c);
+
 }
 
 Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* surface, SDL_Texture* texture){
@@ -115,4 +114,12 @@ Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* s
 	}
 	
 }
+void freeFenetre(Contenu* c) {
+	SDL_DestroyWindow(c->window);
+	SDL_DestroyRenderer(c->renderer);
+	SDL_FreeSurface(c->surface);
+	SDL_DestroyTexture(c->texture);
+	free(c);
+}
+
 

@@ -17,5 +17,6 @@
 	void win(int* h);
 	void gameOver();
 	Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* surface, SDL_Texture* texture);
+	void freeFenetre(Contenu* c);
 
 #endif
