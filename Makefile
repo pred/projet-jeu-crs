@@ -1,7 +1,7 @@
 CC_FLAGS=-std=gnu99 -Wall -pedantic
 LD_FLAGS=-lSDL2 -lSDL2_ttf -lSDL2_image
 
-all: menu
+all: menu clean
 
 menu: menu.o niveau.o opt.o afficher.o jeu.o fichiers.o
 	gcc -o menu menu.o niveau.o opt.o afficher.o jeu.o fichiers.o ${LD_FLAGS}
@@ -14,8 +14,6 @@ niveau.o: niveau.c
 
 opt.o: opt.c
 	gcc ${CC_FLAGS} -c opt.c
-
-
 
 jeu.o: jeu.c 
 	gcc ${CC_FLAGS} -c jeu.c
