@@ -2,6 +2,8 @@
 #include "constantes.h" 
 #include <stdio.h>
 
+SDL_Surface* text;
+
 void createtexte(char* mot, Contenu* C, int i,int j,TTF_Font *police){
 
 	/* recuperer la police */
@@ -14,11 +16,18 @@ void createtexte(char* mot, Contenu* C, int i,int j,TTF_Font *police){
 	SDL_Color color={255,255,255};
 	/*ecriture de jouer */
 	
-	C->surface =TTF_RenderText_Solid(police,mot,color);
+	text = TTF_RenderUTF8_Blended(police, mot, color);
+	SDL_Rect d={i,j,500,500};
+
+	SDL_BlitSurface(text,NULL,SDL_GetWindowSurface(C->window), &d );
+	TTF_CloseFont(police);
+	SDL_FreeSurface(text);
+
+	/*C->surface =TTF_RenderText_Solid(police,mot,color);
 	C->texture=SDL_CreateTextureFromSurface(C->renderer,C->surface);
 	SDL_Rect d={i,j,500,500};
 	SDL_RenderCopy(C->renderer,C->texture,NULL,&d);
-	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&d);
+	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&d);*/
 	
 
 }
