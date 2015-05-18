@@ -1,4 +1,4 @@
-CC_FLAGS=-std=gnu99 -Wall -pedantic
+CC_FLAGS=-std=gnu99 -Wall -g -pedantic
 LD_FLAGS=-lSDL2 -lSDL2_ttf -g -lSDL2_image
 
 all: menu clean
