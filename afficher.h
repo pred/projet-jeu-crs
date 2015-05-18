@@ -10,12 +10,13 @@
 #include "constantes.h"
 
 
-	void createtexte(char* mot,Contenu* C, int i,int j,TTF_Font *police);
+	void createtexte(char* mot,Contenu* C, int i,int j, int taille);
 	void chargerimage(Contenu* C, int i, int j, SDL_Surface*);
 	void afficherimage(Contenu* C,SDL_Surface* surface, int l,int m);
 	
 	void win(int* h);
 	void gameOver();
 	Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* surface, SDL_Texture* texture);
+	void freeFenetre(Contenu* c);
 
 #endif

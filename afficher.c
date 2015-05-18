@@ -4,13 +4,13 @@
 
 SDL_Surface* text;
 
-void createtexte(char* mot, Contenu* C, int i,int j,TTF_Font *police){
+void createtexte(char* mot, Contenu* C, int i,int j, int taille){
 
 	/* recuperer la police */
 	
-	police = TTF_OpenFont("gargi.ttf", 50);
+	TTF_Font* police = TTF_OpenFont("gargi.ttf", taille);
 	if(!police){
-		printf("erreur ttf open font");
+		printf(" afficher.c ligne 13 erreur ttf open font");
 	}
 	/*choix de la couleur de l'ecriture */ 
 	SDL_Color color={255,255,255};
@@ -29,12 +29,11 @@ void createtexte(char* mot, Contenu* C, int i,int j,TTF_Font *police){
 	SDL_RenderCopy(C->renderer,C->texture,NULL,&d);
 	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&d);*/
 	
-
 }
 void chargerimage(Contenu* C, int i, int j, SDL_Surface* surface){
-	 C->surface=surface;
-	 C->texture = SDL_CreateTextureFromSurface(C->renderer,
-        C->surface);
+	C->surface=surface;
+	C->texture = SDL_CreateTextureFromSurface(C->renderer,
+    C->surface);
 	SDL_Rect dstrect1 = {i, j, 200,200 };
 	SDL_RenderCopy(C->renderer, C->texture, NULL, &dstrect1);
 	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&dstrect1);
@@ -54,7 +53,7 @@ void afficherimage(Contenu* C,SDL_Surface* surface,int l,int m){
 
 
 }
-
+/* Adrien Wehrung donne des sous si vous ne regardez pas la suite*/
 
 
 void win(int* h){
@@ -62,53 +61,42 @@ void win(int* h){
 	int f=*h;
 	char nbre[100]="";
 	sprintf(nbre,"Vous avez gagne %d fromage(s)",f);	
-	
-	SDL_Window * window = SDL_CreateWindow("C'est Gagne!!",
-        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,300, 200, 0);
+	SDL_Window * window = SDL_CreateWindow("C'est Gagne!!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,300, 200, 0);
 	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_RenderPresent(renderer);
 	TTF_Init();
-	TTF_Font *police = NULL;
-	police = TTF_OpenFont("gargi.ttf", 10);
-	SDL_Color color={255,255,255};
-	SDL_Surface *gagne;
-	gagne =TTF_RenderText_Solid(police,nbre,color);
-	SDL_Texture *V=SDL_CreateTextureFromSurface(renderer,gagne);
-	SDL_Rect d={50,50,100,100};
-	SDL_RenderCopy(renderer,V,NULL,&d);
-	SDL_BlitSurface(gagne,NULL,SDL_GetWindowSurface(window),&d);
-		
-	SDL_UpdateWindowSurface(window);
+	Contenu* c = creerFenetre( window, renderer, NULL, NULL);
+
+	
+	
+
+	createtexte(nbre, c, 60,80, 10);
+
+	SDL_UpdateWindowSurface(c->window);
 	SDL_Delay(2000);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);  
+	TTF_Quit(); 
+	freeFenetre(c); 
 	
 		
 		     	
 }
 
 void gameOver()
-{
-	SDL_Window * window = SDL_CreateWindow("Vous avez perdu ...",
-        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,300, 200, 0);
+{	
+	SDL_Window * window = SDL_CreateWindow("Vous avez perdu ...",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,300, 200, 0);
 	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_RenderPresent(renderer);
-	
-	TTF_Font *police = NULL;
-	police = TTF_OpenFont("gargi.ttf", 10);
-	SDL_Color color={255,255,255};
-	SDL_Surface *gagne;
-	gagne =TTF_RenderText_Solid(police,"Vous avez perdu! Vous avez touche un piege",color);
-	SDL_Texture *V=SDL_CreateTextureFromSurface(renderer,gagne);
-	SDL_Rect d={50,50,100,100};
-	SDL_RenderCopy(renderer,V,NULL,&d);
-	SDL_BlitSurface(gagne,NULL,SDL_GetWindowSurface(window),&d);
-	
+
+	TTF_Init();
+	Contenu* c = creerFenetre( window, renderer, NULL, NULL);
+
+	createtexte("Vous avez perdu", c, 70,80, 10);
 	
 	SDL_UpdateWindowSurface(window);
 	SDL_Delay(2000);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);  
+	TTF_Quit(); 
+	freeFenetre(c);
+
 }
 
 Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* surface, SDL_Texture* texture){
@@ -126,4 +114,12 @@ Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* s
 	}
 	
 }
+void freeFenetre(Contenu* c) {
+	SDL_DestroyWindow(c->window);
+	SDL_DestroyRenderer(c->renderer);
+	SDL_FreeSurface(c->surface);
+	SDL_DestroyTexture(c->texture);
+	free(c);
+}
+
 
