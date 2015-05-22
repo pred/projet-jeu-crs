@@ -41,7 +41,7 @@ int main() {
 	SDL_RenderPresent(renderer);
 
 	/*afficher une image (souris)*/
-	SDL_Surface * surface = SDL_LoadBMP("souris2.bmp");
+	SDL_Surface * surface = SDL_LoadBMP("Image/souris2.bmp");
     if (surface == NULL)
     {    SDL_ShowSimpleMessageBox(0, "Image init error", SDL_GetError(),
             window);
@@ -74,7 +74,7 @@ int main() {
 
        
 void menu(int* terminer,Contenu* C){  
-	noir1= SDL_LoadBMP("noir.bmp");      
+	noir1= SDL_LoadBMP("Image/noir.bmp");      
     int terminermenu = 0;        
 	SDL_Event event;        
                  

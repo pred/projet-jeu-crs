@@ -1,3 +1,136 @@
+int evenement(int* terminer, int** carte,SDL_Rect* positionSouris,int* direction,Contenu* C,int* fromage,int* position){
+     SDL_Event event;
+
+      while (SDL_PollEvent(&event)){
+
+
+      
+            
+            switch(event.type)
+            {
+                case SDL_QUIT:
+                printf("on quitte");
+                *fromage=0;
+                *terminer=1;
+                return 1;
+                break;
+
+                case SDL_KEYDOWN:
+                switch(event.key.keysym.sym)
+                {   
+                    case SDLK_UP:
+                    if(*direction==DROITE || *direction==GAUCHE){                        
+                        printf("key up");
+                        if (positionSouris->y-1 < 0){
+                            return 0;
+                            break;
+                        }
+                        else if (carte[positionSouris->y-1][positionSouris->x] == MUR){
+                            return 0;
+                             break;
+                        }                             
+                        else {       
+                            int h=positionSouris->y;
+                            while (carte[positionSouris->y-1][positionSouris->x]!=MUR)
+                            {   
+                                (positionSouris->y)--;
+                                if (positionSouris->y==0){
+                                    positionSouris->y=h;
+                                    return 0;    
+                                    break;
+                                }
+                                else if (carte[positionSouris->y][positionSouris->x]==PORTE){
+                                    carte[h][positionSouris->x]=CIEL;
+                                    afficheJeu(C, carte, *direction);
+                                    win(fromage);
+                                    *terminer=1;
+                                    return 1;
+                                    break;
+                                }
+                                else if (carte[positionSouris->y][positionSouris->x]==PIEGE){
+                                        carte[h][positionSouris->x]=CIEL;
+                                        afficheJeu(C, carte, *direction);
+                                        gameOver();
+                                        *terminer=1;
+                                        return 1;
+                                        break;
+                                }
+                                    
+                            }
+                            carte[h][positionSouris->x]=CIEL;
+                            carte[positionSouris->y][positionSouris->x]=SOURIS;
+                            afficheJeu(C,carte,*direction);
+                            *position=BAS;
+                            return 1;
+                            
+                        }
+                    }
+                    break;                    
+                        
+                        
+
+                    case SDLK_DOWN:
+                        printf("key down");
+                    if(*direction==DROITE || *direction==GAUCHE){
+                        if (positionSouris->y+1 >= NB_BLOCS_HAUTEUR){
+                            return 0;
+                            break;
+                        }
+                        else if (carte[positionSouris->y+1][positionSouris->x] == MUR){
+                            return 0;
+                            break;
+                        }
+                        else {
+                            int g=positionSouris->y;
+                            while (carte[positionSouris->y+1][positionSouris->x]!=MUR)
+                            {
+                                (positionSouris->y)++;
+                                if (positionSouris->y==NB_BLOCS_HAUTEUR){
+                                    printf("trop bas");
+                                    positionSouris->y=g;
+                                    return 0;
+                                    break;
+                                }
+                                else if (carte[positionSouris->y][positionSouris->x]==PORTE){
+                                    printf("porte\n");
+                                    carte[g][positionSouris->x]=CIEL;
+                                     afficheJeu(C, carte, *direction);
+                                     win(fromage);
+                                    *terminer=1;
+                                    return 1;
+                                    break;
+                                }
+                                else if (carte[positionSouris->y][positionSouris->x]==PIEGE){
+                                    printf("piege\n");
+                                    carte[g][positionSouris->x]=CIEL;
+                                     afficheJeu(C, carte, *direction);
+                                     gameOver();
+                                    *fromage=0;
+                                    *terminer=1;
+                                    return 1;
+                                    break;
+                                }
+                           
+                            } 
+                            carte[g][positionSouris->x]=CIEL;
+                             carte[positionSouris->y][positionSouris->x]=SOURIS;
+                             *position=HAUT;
+                             printf("on passe ici\n");
+                             afficheJeu(C,carte,*direction);  
+                            
+                             return 1;              
+                        }                    
+                    }
+                    break;
+                       
+                }         
+               
+                break; 
+            }
+        }   
+    return 0;
+}
+
 SDL_Rect* prochaineCoordonnees(Souris* souris,int** carte){
 
     SDL_Rect* prochaineCoordonnees;

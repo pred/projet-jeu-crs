@@ -1,14 +1,11 @@
-<<<<<<< HEAD
 CC_FLAGS=-std=gnu99 -Wall -g -pedantic
-=======
 CC_FLAGS=-std=gnu99 -Wall -g -pedantic 
->>>>>>> 195ea17e456f9e572ac27a40111546da9a4280ec
 LD_FLAGS=-lSDL2 -lSDL2_ttf -g -lSDL2_image
 
 all: menu clean
 
-menu: menu.o niveau.o opt.o afficher.o jeu.o fichiers.o
-	gcc -o menu menu.o niveau.o opt.o afficher.o jeu.o fichiers.o ${LD_FLAGS}
+menu: menu.o souris.o niveau.o opt.o afficher.o jeu.o fichiers.o 
+	gcc -o menu menu.o souris.o niveau.o opt.o afficher.o jeu.o fichiers.o ${LD_FLAGS}
 
 menu.o: menu.c 
 	gcc ${CC_FLAGS} -c menu.c
@@ -27,6 +24,9 @@ fichiers.o: fichiers.c
 
 afficher.o: afficher.c
 	gcc ${CC_FLAGS} -c afficher.c
+
+souris.o:
+	gcc ${CC_FLAGS} -c souris.c
 
 clean:
 	rm -rf *.o
