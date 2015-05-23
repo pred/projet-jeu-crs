@@ -12,7 +12,7 @@
 
 
     enum {HAUT, DROITE, BAS, GAUCHE};
-    enum {CIEL, MUR, FROMAGE,  PIEGE, PORTE, FLECHED, FLECHEG,CHAT};
+    enum {CIEL, MUR, FROMAGE, PIEGE, PORTE, FLECHED, FLECHEG,CHAT};
     typedef struct Contenu {
         SDL_Window *window;
         SDL_Renderer *renderer;
