@@ -43,10 +43,14 @@ SDL_Rect* prochaineCoordonnees(Souris* souris,int** carte){
         }
 
         prochaineCoordonnees->x = (t+d%2)*((1-t)*(2-d)+t*((1-d%2)*((p%3-1)*(p%3-2)-(p%3))+(d%2)*(2-d)));
-        prochaineCoordonnees->x /= fabs(prochaineCoordonnees->x);
+        if (prochaineCoordonnees->x!=0){
+            prochaineCoordonnees->x /= fabs(prochaineCoordonnees->x);
+        } 
         prochaineCoordonnees->x +=souris->coordonneeActuelle->x;
         prochaineCoordonnees->y = (t+1-(d%2))*((1-t)*(d-1)+t*((1-d%2)*(d-1)+(d%2)*((p%3-1)*(p%3-2)-(p%3))));
-        prochaineCoordonnees->y /= fabs(prochaineCoordonnees->y);
+        if (prochaineCoordonnees->y!=0){
+            prochaineCoordonnees->y /= fabs(prochaineCoordonnees->y);
+        }
         prochaineCoordonnees->y +=souris->coordonneeActuelle->y;
         return prochaineCoordonnees;
     }
@@ -56,8 +60,6 @@ SDL_Rect* prochaineCoordonnees(Souris* souris,int** carte){
 }
 
 int doitTourner(Souris* souris,int** carte){
-    if(estFaceMur(souris,carte))
-        return 1;
     int d = souris->direction;
     switch(d){
         case HAUT:return(carte[souris->coordonneeActuelle->y-1][souris->coordonneeActuelle->x+1]==CIEL && carte[souris->coordonneeActuelle->y-1][souris->coordonneeActuelle->x-1]==CIEL);
@@ -69,7 +71,7 @@ int doitTourner(Souris* souris,int** carte){
         case GAUCHE:return(carte[souris->coordonneeActuelle->y+1][souris->coordonneeActuelle->x-1]==CIEL && carte[souris->coordonneeActuelle->y-1][souris->coordonneeActuelle->x-1]==CIEL);
         break;
     }
-    return -1;
+    return 0;
 
 }
 
@@ -85,11 +87,11 @@ int prochaineDirection(Souris* souris,int** carte){
     if(doitTourner(souris,carte) == 0)
         return (souris->direction);
 
-    if((souris->direction)%2 == 1 && prochaineCoordonnees(souris,carte)->y < souris->coordonneeActuelle->y)
+    if((souris->direction)%2 == 1 && (prochaineCoordonnees(souris,carte)->y < souris->coordonneeActuelle->y))
         return HAUT;
-    else if((souris->direction)%2)
+    else if((souris->direction)%2==1 && (prochaineCoordonnees(souris,carte)->y > souris->coordonneeActuelle->y))
         return BAS;
-    else if((souris->direction)%2 == 0 && prochaineCoordonnees(souris,carte)->x < souris->coordonneeActuelle->x) 
+    else if((souris->direction)%2 == 0 && (prochaineCoordonnees(souris,carte)->x < souris->coordonneeActuelle->x))
         return GAUCHE;
     else
         return DROITE;

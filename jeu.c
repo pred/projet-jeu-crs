@@ -162,8 +162,30 @@ void afficheJeu(Contenu* C,int** carte){
     
     
 }
-
-
+SDL_Rect* positionChat(int** carte){
+    SDL_Rect* posChat;
+    posChat=(SDL_Rect*) malloc(sizeof(SDL_Rect));
+    if(posChat==NULL){
+        return NULL;
+    }
+    else {
+        int i,j;       
+        for (i = 0 ; i < NB_BLOCS_HAUTEUR ; i++)
+        {
+            for (j = 0 ; j < NB_BLOCS_LARGEUR ; j++)
+            {
+                if (carte[i][j]==CHAT)
+                {
+                    posChat->x=j;
+                    posChat->y=i;
+                    posChat->w=34;
+                    posChat->h=34;        
+                }
+            }
+        }
+    }
+    return posChat;
+}
 
 int map(Contenu* C,char* s,Souris* coordonneeInitiale)
 {       
@@ -171,69 +193,238 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
             int fromage=0;
             int **carte=chargerMap(s);
             souris=creerSouris(coordonneeInitiale->coordonneeActuelle,coordonneeInitiale->direction,coordonneeInitiale->position);
-            Souris* sourisavant=souris;    
+            int directionChat=DROITE;
 
             chargerImage();
             afficheJeu(C,carte);
        
               
             while(terminer==0){
-                switch(carte[prochaineCoordonnees(sourisavant,carte)->y][prochaineCoordonnees(sourisavant,carte)->x])
-                {   
-                    case FROMAGE:
-                        fromage++;
-                        souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
-                        break;
-                    case PIEGE:             
-                        gameOver();
-                        terminer=1;
-                        break;
-
-                    case PORTE:
-                        win(&fromage);
-                        terminer=1;
-                        break;
-                    case CIEL:
-                        souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
-                        
-                        break;
+                while(evenement(carte,souris,C,&fromage,&terminer)==0 && terminer==0){
+                        mouvement(carte,souris,&fromage,&terminer,C);
+                        afficheJeu(C,carte);
+                        deplacementChat(carte,&directionChat);
                 }
-                souris->direction=prochaineDirection(sourisavant,carte);
-                souris->position=prochainePosition(sourisavant,carte);
-                sourisavant=souris;
-                afficheJeu(C,carte);
-                printf("on passe pas la\n");
             }
             
             return fromage;
             freeImage();
             freeSouris(souris);
-            freeSouris(sourisavant);
+            
             freeMap(carte);    
 }
-
-void mouvement(int** carte,Souris* souris, int* fromage,int* terminer){
-      
+void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C){
+     Souris* sourisavant=creerSouris(souris->coordonneeActuelle,souris->direction,souris->position); 
     switch(carte[prochaineCoordonnees(souris,carte)->y][prochaineCoordonnees(souris,carte)->x])
-    {   
-        case FROMAGE:
-            (*fromage)++;
-            souris->coordonneeActuelle=prochaineCoordonnees(souris,carte);
-            break;
-        case PIEGE:             
-            gameOver();
-            *terminer=1;
-            break;
+                {   
+                    case FROMAGE:
+                        (*fromage)++;
+                        carte[prochaineCoordonnees(souris,carte)->y][prochaineCoordonnees(souris,carte)->x]=CIEL;
 
-        case PORTE:
-            win(fromage);
-            *terminer=1;
+                        souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
+                        souris->direction=prochaineDirection(sourisavant,carte);
+                        souris->position=prochainePosition(sourisavant,carte);
+                        break;
+                    case PIEGE:             
+                        gameOver();
+                        *terminer=1;
+                        break;
+
+                    case PORTE:
+                        win(fromage);
+                        *terminer=1;
+                        break;
+                    case CIEL:
+                        souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
+                        souris->direction=prochaineDirection(sourisavant,carte);
+                        souris->position=prochainePosition(sourisavant,carte);
+                        break;
+                    case FLECHEG:
+                        switch(souris->direction){
+                        case DROITE:
+                            souris->direction=GAUCHE;
+                            break;
+                        case GAUCHE: 
+                            souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
+                            souris->direction=prochaineDirection(sourisavant,carte);
+                            souris->position=prochainePosition(sourisavant,carte);
+                            break;
+                        break;
+                        }
+                        break;
+                    case FLECHED:
+                        switch(souris->direction){
+                        case DROITE:
+                            souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
+                            souris->direction=prochaineDirection(sourisavant,carte);
+                            souris->position=prochainePosition(sourisavant,carte);
+                            break;
+                        case GAUCHE: 
+                            souris->direction=DROITE;
+                            break;
+                        break;
+                        }
+                        break;
+                    case CHAT:
+                         gameOver();
+                        *terminer=1;
+                        break;
+                }
+                
+               
+                afficheJeu(C,carte);                
+                freeSouris(sourisavant);
+                
+}
+
+int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
+     SDL_Event event;
+
+      while (SDL_PollEvent(&event)){
+   
+           
+            switch(event.type)
+            {
+                case SDL_QUIT:
+                    *fromage=0;
+                    *terminer=1;
+                    return 1;
+                    break;
+
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym)
+                    {   
+                        case SDLK_UP:
+                            if ((souris->coordonneeActuelle->y)-1 < 0){
+                                return 0;
+                                
+                            }
+                            else if (carte[souris->coordonneeActuelle->y-1][souris->coordonneeActuelle->x] == MUR){
+                                return 0;
+                                 
+                            }                             
+                            else {       
+                                int h=souris->coordonneeActuelle->y;
+                                while (carte[souris->coordonneeActuelle->y-1][souris->coordonneeActuelle->x]!=MUR)
+                                {   
+                                    (souris->coordonneeActuelle->y)--;
+                                    if (souris->coordonneeActuelle->y==0){
+                                        souris->coordonneeActuelle->y=h;
+                                        return 0;    
+                                        
+                                    }
+                                    else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==PORTE){
+                                        
+                                        afficheJeu(C, carte);
+                                        win(fromage);
+                                        *terminer=1;
+                                        return 1;
+                                        
+                                    }
+                                    else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==PIEGE){
+                                            
+                                            afficheJeu(C, carte);
+                                            gameOver();
+                                            *terminer=1;
+                                            return 1;
+                                            
+                                    }
+                                        
+                                }
+                                
+                                afficheJeu(C,carte);
+                                souris->position=BAS;
+                                return 1;
+                                
+                            }
+                            break;                    
+                            
+                            
+
+                        case SDLK_DOWN:
+                            
+                        
+                            if (souris->coordonneeActuelle->y+1 >= NB_BLOCS_HAUTEUR){
+                                return 0;
+                                
+                            }
+                            else if (carte[souris->coordonneeActuelle->y+1][souris->coordonneeActuelle->x] == MUR){
+                                return 0;
+                                
+                            }
+                            else {
+                                int g=souris->coordonneeActuelle->y;
+                                while (carte[souris->coordonneeActuelle->y+1][souris->coordonneeActuelle->x]!=MUR)
+                                {
+                                    (souris->coordonneeActuelle->y)++;
+                                    if (souris->coordonneeActuelle->y==NB_BLOCS_HAUTEUR){
+                                        
+                                        souris->coordonneeActuelle->y=g;
+                                        return 0;
+                                        
+                                    }
+                                    else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==PORTE){
+                                       
+                                        
+                                         afficheJeu(C, carte);
+                                         win(fromage);
+                                        *terminer=1;
+                                        return 1;
+                                        
+                                    }
+                                    else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==PIEGE){
+                                        
+                                        
+                                         afficheJeu(C, carte);
+                                         gameOver();
+                                        *fromage=0;
+                                        *terminer=1;
+                                        return 1;
+                                        
+                                    }
+                               
+                                } 
+                               
+                                 souris->position=HAUT;
+                                 
+                                 afficheJeu(C,carte);  
+                                
+                                 return 1;              
+                            }                    
+                            break;
+                    }
+                           
+                          
+               
+                    break; 
+            }
+    }   
+    return 0;
+}
+
+void deplacementChat(int** carte,int* directionChat){
+    SDL_Rect* posChat=positionChat(carte);
+    switch(*directionChat){
+        case DROITE:
+            if((carte[posChat->y+1][posChat->x+1]==MUR || carte[posChat->y-1][posChat->x+1]==MUR) && carte[posChat->y][posChat->x+1]!=MUR){
+                carte[posChat->y][posChat->x]=CIEL;
+                carte[posChat->y][posChat->x+1]=CHAT;
+            }
+            else {
+                *directionChat=GAUCHE;
+            }
             break;
-        case CIEL:
-            souris->coordonneeActuelle=prochaineCoordonnees(souris,carte);
-            *terminer=0;
+        case GAUCHE:
+            if((carte[posChat->y+1][posChat->x-1]==MUR || carte[posChat->y-1][posChat->x-1]==MUR) && carte[posChat->y][posChat->x-1]!=MUR){
+                carte[posChat->y][posChat->x]=CIEL;
+                carte[posChat->y][posChat->x-1]=CHAT;
+            }
+            else {
+                *directionChat=DROITE;
+            }
             break;
     }
-    souris->position=prochaineDirection(souris,carte);
-    souris->position=prochainePosition(souris,carte);
+   
+
+
 }
