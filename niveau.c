@@ -160,7 +160,7 @@ void niveau(Contenu* C, int *terminermenu){
 			
 			chargerimage(C,0,0,noir);
 			SDL_UpdateWindowSurface(C->window);
-			SDL_Rect rect={11,1,34,34};
+			SDL_Rect rect={14,1,34,34};
 			
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
@@ -173,7 +173,7 @@ void niveau(Contenu* C, int *terminermenu){
 		else if (event.button.button ==SDL_BUTTON_LEFT && event.button.x>=300 && event.button.y>50 && event.button.x<=500 && event.button.y<=300){
 			chargerimage(C,0,0,noir);
 			SDL_UpdateWindowSurface(C->window);
-			SDL_Rect rect={11,1,34,34};
+			SDL_Rect rect={17,2,34,34};
 			
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
@@ -187,7 +187,7 @@ void niveau(Contenu* C, int *terminermenu){
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=550 && event.button.y>50 && event.button.x<=750 && event.button.y<=300){
 			chargerimage(C,0,0,noir);
 			SDL_UpdateWindowSurface(C->window);
-			SDL_Rect rect={11,1,34,34};
+			SDL_Rect rect={19,11,34,34};
 			
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
@@ -200,7 +200,7 @@ void niveau(Contenu* C, int *terminermenu){
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=50 && event.button.y>350 && event.button.x<=250 && event.button.y<=750){
 			chargerimage(C,0,0,noir);
 			SDL_UpdateWindowSurface(C->window);
-			SDL_Rect rect={11,1,34,34};
+			SDL_Rect rect={19,11,34,34};
 			
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
@@ -213,7 +213,7 @@ void niveau(Contenu* C, int *terminermenu){
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=300 && event.button.y>350 && event.button.x<=500 && event.button.y<=750){
 			chargerimage(C,0,0,noir);
 			SDL_UpdateWindowSurface(C->window);
-			SDL_Rect rect={11,1,34,34};
+			SDL_Rect rect={12,9,34,34};
 			
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
@@ -226,7 +226,7 @@ void niveau(Contenu* C, int *terminermenu){
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=550 && event.button.y>350 && event.button.x<=750 && event.button.y<=750){
 			chargerimage(C,0,0,noir);
 			SDL_UpdateWindowSurface(C->window);
-			SDL_Rect rect={11,1,34,34};
+			SDL_Rect rect={17,9,34,34};
 			
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
