@@ -115,10 +115,12 @@ Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* s
 	
 }
 void freeFenetre(Contenu* c) {
-	SDL_DestroyWindow(c->window);
-	SDL_DestroyRenderer(c->renderer);
-	SDL_FreeSurface(c->surface);
+	
 	SDL_DestroyTexture(c->texture);
+	SDL_FreeSurface(c->surface);
+	SDL_DestroyRenderer(c->renderer);
+	SDL_DestroyWindow(c->window);
+
 	free(c);
 }
 

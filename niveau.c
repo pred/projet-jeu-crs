@@ -181,6 +181,7 @@ void niveau(Contenu* C, int *terminermenu){
 			souris=creerSouris(&rect,DROITE,HAUT);
 			
 			int f1=map(C,"niveau2.lvl",souris);
+			freeSouris(souris);
 
 			if(f1>fromage[1]){
 				fromage[1]=f1;

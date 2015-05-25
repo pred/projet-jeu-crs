@@ -88,15 +88,23 @@ int prochaineDirection(Souris* souris,int** carte){
 
     if(doitTourner(souris,carte) == 0)
         return (souris->direction);
-
-    if((souris->direction)%2 == 1 && (prochaineCoordonnees(souris,carte)->y < souris->coordonneeActuelle->y))
+        SDL_Rect* tempoCoord = prochaineCoordonnees(souris,carte);
+    if((souris->direction)%2 == 1 && (tempoCoord->y < souris->coordonneeActuelle->y)) {
+        free(tempoCoord);
         return HAUT;
-    else if((souris->direction)%2==1 && (prochaineCoordonnees(souris,carte)->y > souris->coordonneeActuelle->y))
+    }
+    else if((souris->direction)%2==1 && (tempoCoord->y > souris->coordonneeActuelle->y)) {
+        free(tempoCoord);
         return BAS;
-    else if((souris->direction)%2 == 0 && (prochaineCoordonnees(souris,carte)->x < souris->coordonneeActuelle->x))
+    }
+    else if((souris->direction)%2 == 0 && (tempoCoord->x < souris->coordonneeActuelle->x)){
+        free(tempoCoord);
         return GAUCHE;
-    else
+    }
+    else {
+        free(tempoCoord);
         return DROITE;
+    }
 }
 
 int prochainePosition(Souris* souris,int** carte){

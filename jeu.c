@@ -190,31 +190,39 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
 }
 void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C){
     sourisavant=creerSouris(souris->coordonneeActuelle,souris->direction,souris->position); 
-    switch(carte[prochaineCoordonnees(souris,carte)->y][prochaineCoordonnees(souris,carte)->x])
+    SDL_Rect* tempoCoord = prochaineCoordonnees(souris,carte);
+    switch(carte[tempoCoord->y][tempoCoord->x])
                 {   
                     case FROMAGE:
+                        
                         (*fromage)++;
-                        carte[prochaineCoordonnees(souris,carte)->y][prochaineCoordonnees(souris,carte)->x]=CIEL;
 
+                        carte[tempoCoord->y][tempoCoord->x]=CIEL;
+                        free(tempoCoord);
+                        //free(prochaineCoordonnees(souris,carte));
                         souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
                         souris->direction=prochaineDirection(sourisavant,carte);
                         souris->position=prochainePosition(sourisavant,carte);
                         break;
-                    case PIEGE:             
+                    case PIEGE:
+                        free(tempoCoord);             
                         gameOver();
                         *terminer=1;
                         break;
 
                     case PORTE:
+                        free(tempoCoord);
                         win(fromage);
                         *terminer=1;
                         break;
                     case CIEL:
+                        free(tempoCoord);
                         souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
                         souris->direction=prochaineDirection(sourisavant,carte);
                         souris->position=prochainePosition(sourisavant,carte);
                         break;
                     case FLECHEG:
+                        free(tempoCoord);
                         switch(souris->direction){
                         case DROITE:
                             souris->direction=GAUCHE;
@@ -228,6 +236,7 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                         }
                         break;
                     case FLECHED:
+                        free(tempoCoord);
                         switch(souris->direction){
                         case DROITE:
                             souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
@@ -241,6 +250,7 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                         }
                         break;
                     case CHAT:
+                        free(tempoCoord);
                          gameOver();
                         *terminer=1;
                         break;
@@ -248,7 +258,7 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                 
                
                 afficheJeu(C,carte);                
-                //freeSouris(sourisavant);
+                freeSouris(sourisavant);
                 
 }
 
