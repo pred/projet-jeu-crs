@@ -98,7 +98,7 @@ void freeImage(){
     SDL_FreeSurface(piege);
     SDL_FreeSurface(porte);
     int i;
-    for (i=0; i<5;i++) {
+    for (i=0; i<4;i++) {
             SDL_FreeSurface(sourisImage[i]);
         }
         free(sourisImage);
