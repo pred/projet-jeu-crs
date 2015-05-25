@@ -162,45 +162,7 @@ void afficheJeu(Contenu* C,int** carte){
     
     
 }
-SDL_Rect* positionChat(int** carte){
-    SDL_Rect* posChat;
-    posChat=(SDL_Rect*) malloc(sizeof(SDL_Rect));
-    if(posChat==NULL){
-        return NULL;
-    }
-    else {
-        int i,j;       
-        for (i = 0 ; i < NB_BLOCS_HAUTEUR ; i++)
-        {
-            for (j = 0 ; j < NB_BLOCS_LARGEUR ; j++)
-            {
-                if (carte[i][j]==CHAT)
-                {
-                    posChat->x=j;
-                    posChat->y=i;
-                    posChat->w=34;
-                    posChat->h=34;        
-                }
-            }
-        }
-    }
-    return posChat;
-}
-int* contientChat(int** carte){
-    int* contient=0;
-    int i,j;       
-        for (i = 0 ; i < NB_BLOCS_HAUTEUR ; i++)
-        {
-            for (j = 0 ; j < NB_BLOCS_LARGEUR ; j++)
-            {
-                if (carte[i][j]==CHAT)
-                {
-                            *contient=1;
-                }
-            }
-        }
-    return contient;
-}
+
 
 int map(Contenu* C,char* s,Souris* coordonneeInitiale)
 {       
@@ -208,7 +170,6 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
             int fromage=0;
             int **carte=chargerMap(s);
             souris=creerSouris(coordonneeInitiale->coordonneeActuelle,coordonneeInitiale->direction,coordonneeInitiale->position);
-            int directionChat=DROITE;
 
             chargerImage();
             afficheJeu(C,carte);
@@ -416,29 +377,3 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
     return 0;
 }
 
-void deplacementChat(int** carte,int* directionChat){
-    SDL_Rect* posChat=positionChat(carte);
-    switch(*directionChat){
-        case DROITE:
-            if((carte[posChat->y+1][posChat->x+1]==MUR || carte[posChat->y-1][posChat->x+1]==MUR) && carte[posChat->y][posChat->x+1]!=MUR){
-                carte[posChat->y][posChat->x]=CIEL;
-                carte[posChat->y][posChat->x+1]=CHAT;
-            }
-            else {
-                *directionChat=GAUCHE;
-            }
-            break;
-        case GAUCHE:
-            if((carte[posChat->y+1][posChat->x-1]==MUR || carte[posChat->y-1][posChat->x-1]==MUR) && carte[posChat->y][posChat->x-1]!=MUR){
-                carte[posChat->y][posChat->x]=CIEL;
-                carte[posChat->y][posChat->x-1]=CHAT;
-            }
-            else {
-                *directionChat=DROITE;
-            }
-            break;
-    }
-   
-
-
-}
