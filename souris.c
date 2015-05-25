@@ -99,9 +99,9 @@ int prochaineDirection(Souris* souris,int** carte){
 }
 
 int prochainePosition(Souris* souris,int** carte){
-    if(doitTourner(souris,carte) == 0)
-        return (souris->position);
     if(estFaceMur(souris,carte))
         return ((souris->direction)+2)%4;
+    if(doitTourner(souris,carte) == 0)
+        return (souris->position);
     return (souris->direction);
 }
