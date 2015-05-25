@@ -16,7 +16,7 @@
 #define WINDOW_TITLE "Trip Trap"
 
 
-void menu(int* terminer,Contenu* C);
+void menu(int* terminer,Contenu* C, SDL_Surface* noir1);
 
 #endif
 

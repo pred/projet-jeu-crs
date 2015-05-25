@@ -17,6 +17,7 @@ Souris* creerSouris(SDL_Rect* coordonneeActuelle,int direction, int position){
 }
 
 void freeSouris(Souris* souris){
+    free(souris->coordonneeActuelle);
 	free(souris);
 }
 

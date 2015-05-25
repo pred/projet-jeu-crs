@@ -37,8 +37,8 @@ int main() {
     {    SDL_ShowSimpleMessageBox(0, "Renderer init error",
             SDL_GetError(), window);
 	}    
-	
-	SDL_RenderPresent(renderer);
+	//SDL_RenderClear(renderer); 
+	//SDL_RenderPresent(renderer);
 
 	/*afficher une image (souris)*/
 	SDL_Surface * surface = SDL_LoadBMP("Image/souris2.bmp");
@@ -56,10 +56,10 @@ int main() {
 		
 	SDL_UpdateWindowSurface(C->window);
     	
-	
+	noir1= SDL_LoadBMP("Image/noir.bmp"); 
 	while(terminer==0){
 	
-	menu(&terminer, C);
+	menu(&terminer, C, noir1);
 	}	
 	
 	SDL_FreeSurface(surface);
@@ -73,14 +73,14 @@ int main() {
 
 
        
-void menu(int* terminer,Contenu* C){  
-	noir1= SDL_LoadBMP("Image/noir.bmp");      
+void menu(int* terminer,Contenu* C, SDL_Surface* noir1){  
+     
     int terminermenu = 0;        
 	SDL_Event event;        
                  
 	SDL_Rect dstrect = { 575, 400, 400,200 };
 	SDL_RenderCopy(C->renderer, C->texture, NULL, &dstrect);
-	 SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&dstrect);
+	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&dstrect);
 	TTF_Init();
 	TTF_Font *police = NULL;
 
