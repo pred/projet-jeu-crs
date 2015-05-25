@@ -167,8 +167,6 @@ void afficheJeu(Contenu* C,int** carte){
 int map(Contenu* C,char* s,Souris* coordonneeInitiale)
 {       
             int terminer=0;
-            int* term;
-            term = &terminer;
             int fromage=0;
             int **carte=chargerMap(s);
             souris=creerSouris(coordonneeInitiale->coordonneeActuelle,coordonneeInitiale->direction,coordonneeInitiale->position);
@@ -178,8 +176,8 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
        
               
             while(terminer==0){
-                while(evenement(carte,souris,C,&fromage,term)==0 && terminer==0){
-                        mouvement(carte,souris,&fromage,term,C);
+                while(evenement(carte,souris,C,&fromage,&terminer)==0 && terminer==0){
+                        mouvement(carte,souris,&fromage,&terminer,C);
                         afficheJeu(C,carte);
                         
                 }

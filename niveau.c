@@ -165,7 +165,7 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f0=map(C,"niveau1.lvl",souris);
-			freeSouris(souris);
+
 			if(f0>fromage[0]){
 				fromage[0]=f0;
 			}
@@ -181,10 +181,7 @@ void niveau(Contenu* C, int *terminermenu){
 			souris=creerSouris(&rect,DROITE,HAUT);
 			
 			int f1=map(C,"niveau2.lvl",souris);
-			printf("free print");
-			fprintf(stderr, "free");
-			freeSouris(souris);
-			printf("j'ai free");
+
 			if(f1>fromage[1]){
 				fromage[1]=f1;
 			}
@@ -200,7 +197,7 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f2=map(C,"niveau3.lvl",souris);
-			freeSouris(souris);
+
 			if(f2>fromage[2]){
 				fromage[2]=f2;
 			}
@@ -215,7 +212,7 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f3=map(C,"niveau4.lvl",souris);
-			freeSouris(souris);
+
 			if(f3>fromage[3]){
 				fromage[3]=f3;
 			}
@@ -245,7 +242,7 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f5=map(C,"niveau6.lvl",souris);
-			free(souris);
+
 			if(f5>fromage[5]){
 				fromage[5]=f5;
 			}
