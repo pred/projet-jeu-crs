@@ -258,7 +258,7 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                 
                
                 afficheJeu(C,carte);                
-                freeSouris(sourisavant);
+                //freeSouris(sourisavant);
                 
 }
 

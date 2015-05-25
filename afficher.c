@@ -44,11 +44,11 @@ void chargerimage(Contenu* C, int i, int j, SDL_Surface* surface){
 
 void afficherimage(Contenu* C,SDL_Surface* surface,int l,int m){
 	C->surface=surface;
-	C->texture=SDL_CreateTextureFromSurface(C->renderer,C->surface);
+	//C->texture=SDL_CreateTextureFromSurface(C->renderer,C->surface);
 		
 	SDL_Rect Rect={l*34,m*34, 34,34};
 
-	SDL_RenderCopy(C->renderer, C->texture, NULL, &Rect);
+	//SDL_RenderCopy(C->renderer, C->texture, NULL, &Rect);
 	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&Rect);
 
 
@@ -75,6 +75,8 @@ void win(int* h){
 	SDL_UpdateWindowSurface(c->window);
 	SDL_Delay(2000);
 	TTF_Quit(); 
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	freeFenetre(c); 
 	
 		
@@ -115,7 +117,7 @@ Contenu* creerFenetre(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* s
 	
 }
 void freeFenetre(Contenu* c) {
-	
+
 	SDL_DestroyTexture(c->texture);
 	SDL_FreeSurface(c->surface);
 	SDL_DestroyRenderer(c->renderer);
