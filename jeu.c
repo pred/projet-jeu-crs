@@ -221,12 +221,11 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
                         
                 }
             }
-            
-            return fromage;
             freeImage();
             freeSouris(souris);
-            
-            freeMap(carte);    
+            freeMap(carte);
+            return fromage;
+    
 }
 void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C){
      Souris* sourisavant=creerSouris(souris->coordonneeActuelle,souris->direction,souris->position); 
