@@ -190,8 +190,6 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
 }
 void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C){
     sourisavant=creerSouris(souris->coordonneeActuelle,souris->direction,souris->position); 
-    printf("souris %d",sourisavant -> coordonneeActuelle->x);
-    fflush(stdout);
     switch(carte[prochaineCoordonnees(souris,carte)->y][prochaineCoordonnees(souris,carte)->x])
                 {   
                     case FROMAGE:
