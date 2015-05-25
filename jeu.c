@@ -179,6 +179,7 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
                 while(evenement(carte,souris,C,&fromage,&terminer)==0 && terminer==0){
                         mouvement(carte,souris,&fromage,&terminer,C);
                         afficheJeu(C,carte);
+                        SDL_Delay(100);
                         
                 }
             }

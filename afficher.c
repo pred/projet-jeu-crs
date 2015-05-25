@@ -32,10 +32,10 @@ void createtexte(char* mot, Contenu* C, int i,int j, int taille){
 }
 void chargerimage(Contenu* C, int i, int j, SDL_Surface* surface){
 	C->surface=surface;
-	C->texture = SDL_CreateTextureFromSurface(C->renderer,
-    C->surface);
+	//C->texture = SDL_CreateTextureFromSurface(C->renderer,
+    //C->surface);
 	SDL_Rect dstrect1 = {i, j, 200,200 };
-	SDL_RenderCopy(C->renderer, C->texture, NULL, &dstrect1);
+	//SDL_RenderCopy(C->renderer, C->texture, NULL, &dstrect1);
 	SDL_BlitSurface(C->surface,NULL,SDL_GetWindowSurface(C->window),&dstrect1);
 
 	SDL_UpdateWindowSurface(C->window);
