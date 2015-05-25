@@ -21,7 +21,7 @@ SDL_Surface *fleched;
 SDL_Surface *flecheg;
 SDL_Surface *chat; 
 Souris* souris;
-
+Souris* sourisavant;
 
 
 int** chargerMap(char *s){
@@ -189,7 +189,9 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
     
 }
 void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C){
-     Souris* sourisavant=creerSouris(souris->coordonneeActuelle,souris->direction,souris->position); 
+    sourisavant=creerSouris(souris->coordonneeActuelle,souris->direction,souris->position); 
+    printf("souris %d",sourisavant -> coordonneeActuelle->x);
+    fflush(stdout);
     switch(carte[prochaineCoordonnees(souris,carte)->y][prochaineCoordonnees(souris,carte)->x])
                 {   
                     case FROMAGE:
@@ -248,7 +250,7 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                 
                
                 afficheJeu(C,carte);                
-                freeSouris(sourisavant);
+                //freeSouris(sourisavant);
                 
 }
 
