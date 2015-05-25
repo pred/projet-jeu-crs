@@ -14,5 +14,6 @@
     int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer);
    void deplacementChat(int** carte,int* directionChat);
    SDL_Rect* positionChat(int** carte);
+   int* contientChat(int** carte);
     
 #endif

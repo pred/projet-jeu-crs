@@ -186,6 +186,21 @@ SDL_Rect* positionChat(int** carte){
     }
     return posChat;
 }
+int* contientChat(int** carte){
+    int* contient=0;
+    int i,j;       
+        for (i = 0 ; i < NB_BLOCS_HAUTEUR ; i++)
+        {
+            for (j = 0 ; j < NB_BLOCS_LARGEUR ; j++)
+            {
+                if (carte[i][j]==CHAT)
+                {
+                            *contient=1;
+                }
+            }
+        }
+    return contient;
+}
 
 int map(Contenu* C,char* s,Souris* coordonneeInitiale)
 {       
@@ -203,7 +218,7 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
                 while(evenement(carte,souris,C,&fromage,&terminer)==0 && terminer==0){
                         mouvement(carte,souris,&fromage,&terminer,C);
                         afficheJeu(C,carte);
-                        deplacementChat(carte,&directionChat);
+                        
                 }
             }
             
