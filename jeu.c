@@ -344,7 +344,7 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
                                 while (carte[souris->coordonneeActuelle->y+1][souris->coordonneeActuelle->x]!=MUR)
                                 {
                                     (souris->coordonneeActuelle->y)++;
-                                    if (souris->coordonneeActuelle->y==NB_BLOCS_HAUTEUR){
+                                    if (souris->coordonneeActuelle->y==NB_BLOCS_HAUTEUR-1){
                                         
                                         souris->coordonneeActuelle->y=g;
                                         return 0;
