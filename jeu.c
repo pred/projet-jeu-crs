@@ -22,6 +22,7 @@ SDL_Surface *flecheg;
 SDL_Surface *chat; 
 Souris* souris;
 Souris* sourisavant;
+SDL_Rect* tempoCoord;
 
 
 int** chargerMap(char *s){
@@ -179,7 +180,7 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
                 while(evenement(carte,souris,C,&fromage,&terminer)==0 && terminer==0){
                         mouvement(carte,souris,&fromage,&terminer,C);
                         afficheJeu(C,carte);
-                        SDL_Delay(100);
+                        SDL_Delay(150);
                         
                 }
             }
@@ -191,7 +192,7 @@ int map(Contenu* C,char* s,Souris* coordonneeInitiale)
 }
 void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C){
     sourisavant=creerSouris(souris->coordonneeActuelle,souris->direction,souris->position); 
-    SDL_Rect* tempoCoord = prochaineCoordonnees(souris,carte);
+    tempoCoord = prochaineCoordonnees(souris,carte);
     switch(carte[tempoCoord->y][tempoCoord->x])
                 {   
                     case FROMAGE:
@@ -199,65 +200,71 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                         (*fromage)++;
 
                         carte[tempoCoord->y][tempoCoord->x]=CIEL;
-                        free(tempoCoord);
+                    
                         //free(prochaineCoordonnees(souris,carte));
                         souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
                         souris->direction=prochaineDirection(sourisavant,carte);
                         souris->position=prochainePosition(sourisavant,carte);
+                        
                         break;
                     case PIEGE:
-                        free(tempoCoord);             
+                                   
                         gameOver();
                         *terminer=1;
                         break;
 
                     case PORTE:
-                        free(tempoCoord);
+                        
                         win(fromage);
                         *terminer=1;
                         break;
                     case CIEL:
-                        free(tempoCoord);
                         souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
                         souris->direction=prochaineDirection(sourisavant,carte);
                         souris->position=prochainePosition(sourisavant,carte);
+                       
                         break;
                     case FLECHEG:
-                        free(tempoCoord);
+                        
                         switch(souris->direction){
                         case DROITE:
                             souris->direction=GAUCHE;
+                            
                             break;
                         case GAUCHE: 
                             souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
                             souris->direction=prochaineDirection(sourisavant,carte);
                             souris->position=prochainePosition(sourisavant,carte);
+                            
                             break;
                         break;
                         }
                         break;
                     case FLECHED:
-                        free(tempoCoord);
+                        
                         switch(souris->direction){
                         case DROITE:
                             souris->coordonneeActuelle=prochaineCoordonnees(sourisavant,carte);
                             souris->direction=prochaineDirection(sourisavant,carte);
                             souris->position=prochainePosition(sourisavant,carte);
+                            
                             break;
                         case GAUCHE: 
                             souris->direction=DROITE;
+                            
                             break;
                         break;
                         }
                         break;
                     case CHAT:
-                        free(tempoCoord);
+                        
                          gameOver();
                         *terminer=1;
+                        
                         break;
                 }
                 
-               
+               //free(tempoCoord);
                 afficheJeu(C,carte);                
                 //freeSouris(sourisavant);
                 
@@ -274,6 +281,7 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
                 case SDL_QUIT:
                     *fromage=0;
                     *terminer=1;
+                    free(tempoCoord);
                     return 1;
                     break;
 
