@@ -165,9 +165,11 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f0=map(C,"niveau1.lvl",souris);
+			freeSouris(souris);
 			if(f0>fromage[0]){
 				fromage[0]=f0;
 			}
+
 			afficheNiveau(C,fromage);
 		}
 		else if (event.button.button ==SDL_BUTTON_LEFT && event.button.x>=300 && event.button.y>50 && event.button.x<=500 && event.button.y<=300){
@@ -179,10 +181,16 @@ void niveau(Contenu* C, int *terminermenu){
 			souris=creerSouris(&rect,DROITE,HAUT);
 			
 			int f1=map(C,"niveau2.lvl",souris);
+			printf("free print");
+			fprintf(stderr, "free");
+			freeSouris(souris);
+			printf("j'ai free");
 			if(f1>fromage[1]){
 				fromage[1]=f1;
 			}
+			fprintf(stderr, "affiche");
 			afficheNiveau(C,fromage);
+
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=550 && event.button.y>50 && event.button.x<=750 && event.button.y<=300){
 			chargerimage(C,0,0,noir);
@@ -192,10 +200,12 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f2=map(C,"niveau3.lvl",souris);
+			freeSouris(souris);
 			if(f2>fromage[2]){
 				fromage[2]=f2;
 			}
 			afficheNiveau(C,fromage);
+
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=50 && event.button.y>350 && event.button.x<=250 && event.button.y<=750){
 			chargerimage(C,0,0,noir);
@@ -205,10 +215,12 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f3=map(C,"niveau4.lvl",souris);
+			freeSouris(souris);
 			if(f3>fromage[3]){
 				fromage[3]=f3;
 			}
 			afficheNiveau(C,fromage);
+
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=300 && event.button.y>350 && event.button.x<=500 && event.button.y<=750){
 			chargerimage(C,0,0,noir);
@@ -218,10 +230,12 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f4=map(C,"niveau5.lvl",souris);
+			
 			if(f4>fromage[4]){
 				fromage[4]=f4;
 			}
 			afficheNiveau(C,fromage);
+
 		}
 		else if(event.button.button ==SDL_BUTTON_LEFT && event.button.x>=550 && event.button.y>350 && event.button.x<=750 && event.button.y<=750){
 			chargerimage(C,0,0,noir);
@@ -231,10 +245,12 @@ void niveau(Contenu* C, int *terminermenu){
 			/* redirection vers les niveaux */ 
 			souris=creerSouris(&rect,DROITE,HAUT);
 			int f5=map(C,"niveau6.lvl",souris);
+			free(souris);
 			if(f5>fromage[5]){
 				fromage[5]=f5;
 			}
 			afficheNiveau(C,fromage);
+
 		}
 		break;
 		
@@ -242,7 +258,6 @@ void niveau(Contenu* C, int *terminermenu){
 
 	}
 	freeImageNiveau();
-	freeSouris(souris);
 	
 }
 

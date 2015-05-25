@@ -3,8 +3,7 @@
 #include "constantes.h"
 
 Souris* creerSouris(SDL_Rect* coordonneeActuelle,int direction, int position){
-	Souris *souris;
-	souris=(Souris *) malloc(sizeof(Souris));
+	Souris* souris =malloc(sizeof(Souris));
 	if(souris==NULL){
 		free(souris);
 	}
@@ -58,6 +57,8 @@ SDL_Rect* prochaineCoordonnees(Souris* souris,int** carte){
     
 
 }
+
+
 
 int doitTourner(Souris* souris,int** carte){
     int d = souris->direction;
