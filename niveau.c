@@ -122,13 +122,13 @@ void afficheNiveau(Contenu* C,int fromage[6])
 		case 0:
 			break;
 		case 1:
-			chargerimage(C,500,550,fromage1);
+			chargerimage(C,600,550,fromage1);
 			break;
 		case 2:
-			chargerimage(C,500,550,fromage2);
+			chargerimage(C,600,550,fromage2);
 			break;
 		case 3:
-			chargerimage(C,500,550,fromage3);
+			chargerimage(C,600,550,fromage3);
 			break;
 	};
 	SDL_UpdateWindowSurface(C->window);
