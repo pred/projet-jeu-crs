@@ -210,6 +210,7 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                     case PIEGE:
                                    
                         gameOver();
+                        *fromage=0;
                         *terminer=1;
                         break;
 
@@ -259,6 +260,7 @@ void mouvement(int** carte,Souris* souris, int* fromage,int* terminer,Contenu* C
                     case CHAT:
                         
                          gameOver();
+                         *fromage=0;
                         *terminer=1;
                         
                         break;
@@ -319,6 +321,25 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
                                             
                                             afficheJeu(C, carte);
                                             gameOver();
+                                            *fromage=0;
+                                            *terminer=1;
+                                            return 1;
+                                            
+                                    }
+                                    else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==FROMAGE){
+                                            (*fromage)++;
+                                            carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]=CIEL;
+                                            afficheJeu(C, carte);
+                                            souris->position=BAS;
+                                           
+                                            return 1;
+                                            
+                                    }
+                                    else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==CHAT){
+                                            
+                                            afficheJeu(C, carte);
+                                            gameOver();
+                                            *fromage=0;
                                             *terminer=1;
                                             return 1;
                                             
@@ -372,6 +393,25 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
                                         
                                          afficheJeu(C, carte);
                                          gameOver();
+                                        *fromage=0;
+                                        *terminer=1;
+                                        return 1;
+                                        
+                                    }
+                                     else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==FROMAGE){
+                                            (*fromage)++;
+                                            carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]=CIEL;
+                                            afficheJeu(C, carte);
+                                            souris->position=HAUT;
+                                            return 1;
+                                            
+                                    }
+                                    else if (carte[souris->coordonneeActuelle->y][souris->coordonneeActuelle->x]==CHAT){
+                                        
+                                        
+                                         afficheJeu(C, carte);
+                                         gameOver();
+                                        
                                         *fromage=0;
                                         *terminer=1;
                                         return 1;
