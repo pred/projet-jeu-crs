@@ -270,8 +270,8 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
 
                 case SDL_KEYDOWN:
                     switch(event.key.keysym.sym)
-                    {   
-                        case SDLK_UP:
+                    { case SDLK_UP:
+                        if(souris->direction==DROITE|| souris->direction==GAUCHE){
                             if ((souris->coordonneeActuelle->y)-1 < 0){
                                 return 0;
                                 
@@ -314,12 +314,13 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
                                 return 1;
                                 
                             }
+                        }
                             break;                    
                             
                             
 
                         case SDLK_DOWN:
-                            
+                            if(souris->direction==DROITE|| souris->direction==GAUCHE){
                         
                             if (souris->coordonneeActuelle->y+1 >= NB_BLOCS_HAUTEUR){
                                 return 0;
@@ -367,7 +368,8 @@ int evenement(int** carte,Souris* souris,Contenu* C,int* fromage,int *terminer){
                                  afficheJeu(C,carte);  
                                 
                                  return 1;              
-                            }                    
+                            }  
+                            }                  
                             break;
                     }
                            
