@@ -89,7 +89,7 @@ void afficheNiveau(Contenu* C,int fromage[6])
 			chargerimage(C,600,250,fromage3);
 			break;
 	};
-	chargerimage(C,50,350, niveau3);
+	chargerimage(C,50,350, niveau4);
 	switch(fromage[3]){
 		case 0:
 			break;
